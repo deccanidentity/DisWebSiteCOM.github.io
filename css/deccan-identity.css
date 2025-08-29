@@ -1,4 +1,3 @@
-
 /* Start: Recommended DeccanIDentity styles */
 
 @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css");
@@ -96,7 +95,13 @@ footer {
     font-size: 1.1em !important;
     word-break: break-word;
   }
-  img {
+  .navbar-inverse .navbar-header > img {
+    margin-left: 10px;
+    float: left;
+    max-width: 60%;
+    height: auto;
+  }
+    .img {
     max-width: 100% !important;
     height: auto !important;
   }
@@ -110,4 +115,22 @@ footer {
     padding-left: 10px !important;
     padding-right: 10px !important;
   }
+  .timeline{
+    width: 100% !important;
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+  .flip-card {
+    margin: 15px 15px;
+    width: 40%;
+    float: left;
+  }
+  .flip-card-inner {
+    margin: 0 auto;
+    font-size: 14px;
+    button {
+      font-size: 10px;
+    }
+  }
 }
+
