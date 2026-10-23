@@ -3,41 +3,123 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Terms & Conditions Popup</title>
-  <link rel="stylesheet" href="css/style.css">
+  <title>Terms & Conditions | DeccanIDentity</title>
+  <link rel="icon" type="image/png" href="images/Logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/modern.css">
+  <style>
+    body {
+      background: #0b1120;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+    .policy-card {
+      background: #ffffff;
+      border-radius: var(--radius-xl);
+      max-width: 680px;
+      width: 100%;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .policy-header {
+      padding: 1.5rem 2rem;
+      border-bottom: 1px solid var(--light-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #f8fafc;
+    }
+    .policy-header h2 {
+      font-size: 1.4rem;
+      color: #0f172a;
+      margin: 0;
+    }
+    .decline-btn {
+      background: none;
+      border: none;
+      font-size: 1.4rem;
+      color: #64748b;
+      cursor: pointer;
+      line-height: 1;
+    }
+    .policy-content {
+      padding: 2rem;
+      max-height: 55vh;
+      overflow-y: auto;
+      font-size: 0.95rem;
+      color: #334155;
+      line-height: 1.6;
+    }
+    .policy-content h3 {
+      font-size: 1.1rem;
+      margin: 1.25rem 0 0.4rem;
+      color: #0f172a;
+    }
+    .policy-footer {
+      padding: 1.25rem 2rem;
+      border-top: 1px solid var(--light-border);
+      background: #f8fafc;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .policy-footer label {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.9rem;
+      color: #334155;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
 
-<div class="modal-overlay" id="termsModal">
-  <div class="modal">
-  <div class="modal-header">
-    <h2 id="modalTitle">Terms & Conditions</h2>
-    <button class="decline-btn" id="declineBtn" title="Decline">✖</button>
+<div class="policy-card">
+  <div class="policy-header">
+    <h2>Terms & Conditions</h2>
+    <button class="decline-btn" id="declineBtn" title="Close" aria-label="Close">✖</button>
   </div>
-    <div class="modal-content">
-      <p>Welcome to the official website of <strong>Deccan Identity Software Limited</strong> (“Deccan Identity”). These Terms & Conditions govern your use of our website (<a href="https://www.deccanidentity.com">www.deccanidentity.com</a>) and related services.</p>
-      
-      <h3>1. Use of Website</h3>
-      <p>You agree to use this website only for lawful purposes and not to interfere with others’ use.</p>
+  
+  <div class="policy-content">
+    <p>Welcome to the official website of <strong>Deccan Identity Software Limited</strong> (“Deccan Identity”). These Terms & Conditions govern your use of our website (<a href="https://deccanidentity.com">deccanidentity.com</a>) and related services.</p>
+    
+    <h3>1. Use of Website</h3>
+    <p>You agree to use this website only for lawful purposes and in a manner that does not infringe the rights of or restrict the use of this site by any third party.</p>
 
-      <h3>2. Intellectual Property</h3>
-      <p>All content is the property of Deccan Identity and protected by copyright and trademark laws.</p>
+    <h3>2. Intellectual Property</h3>
+    <p>All content, designs, logos, software artifacts, and trademarks on this site are the exclusive property of Deccan Identity and protected by applicable copyright and trademark laws.</p>
 
-      <h3>3. Disclaimer</h3>
-      <p>Content is for general information. No warranties are provided regarding accuracy.</p>
+    <h3>3. Disclaimer & Warranties</h3>
+    <p>Website content is provided for general informational purposes. While we strive for accuracy, no representations or warranties are given regarding completeness or reliability.</p>
 
-      <h3>4. Limitation of Liability</h3>
-      <p>Deccan Identity is not liable for any damages arising from use of this site.</p>
+    <h3>4. Limitation of Liability</h3>
+    <p>Deccan Identity shall not be liable for any direct, indirect, or consequential damages resulting from the use or inability to use this site or services.</p>
 
-      <h3>5. Governing Law</h3>
-      <p>These Terms shall be governed by the laws of India. Disputes fall under Hyderabad jurisdiction.</p>
-    </div>
+    <h3>5. Governing Law & Jurisdiction</h3>
+    <p>These Terms shall be governed by and construed in accordance with the laws of India. Any disputes arising shall be subject to the exclusive jurisdiction of the courts in Hyderabad, Telangana, India.</p>
 
-    <div class="modal-footer">
-      <label>
-        <input type="checkbox" id="agreeCheck"> I agree to the Terms & Conditions @ Deccan Identity Software Private Limited
-      </label>
-      <button id="submitBtn" disabled>Submit</button>
+    <h3>6. Contact Information</h3>
+    <p>Questions regarding these terms may be directed to:<br>
+    <strong>Deccan Identity Software Limited</strong><br>
+    Email: <a href="mailto:info@deccanidentity.com">info@deccanidentity.com</a><br>
+    Phone: +91 90000 35869</p>
+  </div>
+
+  <div class="policy-footer">
+    <label>
+      <input type="checkbox" id="agreeCheck"> I agree to the Terms & Conditions @ Deccan Identity Software Private Limited
+    </label>
+    <div style="display: flex; gap: 0.75rem; justify-content: flex-end;">
+      <button class="btn-modern btn-modern-outline btn-modern-sm" onclick="window.history.back()">Back</button>
+      <button id="submitBtn" class="btn-modern btn-modern-primary btn-modern-sm" disabled>Agree & Continue</button>
     </div>
   </div>
 </div>
@@ -47,15 +129,12 @@
   const submitBtn = document.getElementById("submitBtn");
   const declineBtn = document.getElementById("declineBtn");
 
-
-  // Enable button only if checkbox is ticked
   agreeCheck.addEventListener("change", () => {
     submitBtn.disabled = !agreeCheck.checked;
   });
 
-  // Redirect back to previous page
   submitBtn.addEventListener("click", () => {
-    window.history.back();
+    window.location.href = "index.html";
   });
 
   declineBtn.addEventListener("click", () => {

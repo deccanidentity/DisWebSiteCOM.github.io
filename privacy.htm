@@ -3,52 +3,129 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Privacy Policy Popup</title>
-  <link rel="stylesheet" href="css/style.css">
+  <title>Privacy Policy | DeccanIDentity</title>
+  <link rel="icon" type="image/png" href="images/Logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/modern.css">
+  <style>
+    body {
+      background: #0b1120;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+    .policy-card {
+      background: #ffffff;
+      border-radius: var(--radius-xl);
+      max-width: 680px;
+      width: 100%;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .policy-header {
+      padding: 1.5rem 2rem;
+      border-bottom: 1px solid var(--light-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #f8fafc;
+    }
+    .policy-header h2 {
+      font-size: 1.4rem;
+      color: #0f172a;
+      margin: 0;
+    }
+    .decline-btn {
+      background: none;
+      border: none;
+      font-size: 1.4rem;
+      color: #64748b;
+      cursor: pointer;
+      line-height: 1;
+    }
+    .policy-content {
+      padding: 2rem;
+      max-height: 55vh;
+      overflow-y: auto;
+      font-size: 0.95rem;
+      color: #334155;
+      line-height: 1.6;
+    }
+    .policy-content h3 {
+      font-size: 1.1rem;
+      margin: 1.25rem 0 0.4rem;
+      color: #0f172a;
+    }
+    .policy-footer {
+      padding: 1.25rem 2rem;
+      border-top: 1px solid var(--light-border);
+      background: #f8fafc;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .policy-footer label {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.9rem;
+      color: #334155;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
 
-<div class="modal-overlay" id="privacyModal">
-  <div class="modal">
-    <div class="modal-header">
-    <h2 id="modalTitle">Privacy Policy</h2>
-    <button class="decline-btn" id="declinePrivacy" title="Decline">✖</button>
-    </div>
-    <div class="modal-content">
-      <p><strong>Deccan Identity Software Limited</strong> (“Deccan Identity”, “we”, “our”, “us”) respects your privacy and is committed to protecting your personal data.</p>
+<div class="policy-card">
+  <div class="policy-header">
+    <h2>Privacy Policy</h2>
+    <button class="decline-btn" id="declinePrivacy" title="Close" aria-label="Close">✖</button>
+  </div>
+  
+  <div class="policy-content">
+    <p><strong>Deccan Identity Software Limited</strong> (“Deccan Identity”, “we”, “our”, “us”) respects your privacy and is committed to protecting your personal data.</p>
 
-      <h3>1. Information We Collect</h3>
-      <p>We may collect personal information such as your name, email, phone number, and usage details when you interact with our website <a href="https://www.deccanidentity.com">www.deccanidentity.com</a>.</p>
+    <h3>1. Information We Collect</h3>
+    <p>We may collect personal information such as your name, email, phone number, and usage details when you interact with our website <a href="https://deccanidentity.com">deccanidentity.com</a>.</p>
 
-      <h3>2. How We Use Information</h3>
-      <p>Your data may be used to provide services, improve user experience, send updates, and comply with legal requirements.</p>
+    <h3>2. How We Use Information</h3>
+    <p>Your data may be used to provide services, respond to project inquiries, improve user experience, send course/internship updates, and comply with legal requirements.</p>
 
-      <h3>3. Cookies</h3>
-      <p>We may use cookies and similar technologies to enhance functionality and analyze site usage.</p>
+    <h3>3. Cookies</h3>
+    <p>We may use cookies and similar technologies to enhance functionality and analyze site usage.</p>
 
-      <h3>4. Data Sharing</h3>
-      <p>We do not sell your personal data. We may share it with trusted service providers or as required by law.</p>
+    <h3>4. Data Sharing</h3>
+    <p>We do not sell your personal data. We may share it with trusted service providers or as required by law.</p>
 
-      <h3>5. Data Security</h3>
-      <p>We implement industry-standard measures to protect your information from unauthorized access or misuse.</p>
+    <h3>5. Data Security</h3>
+    <p>We implement Zero-Trust industry-standard security measures to protect your information from unauthorized access, loss, or misuse.</p>
 
-      <h3>6. Your Rights</h3>
-      <p>You have the right to request access, correction, or deletion of your personal data by contacting us.</p>
+    <h3>6. Your Rights</h3>
+    <p>You have the right to request access, correction, or deletion of your personal data by contacting us.</p>
 
-      <h3>7. Updates</h3>
-      <p>We may update this Privacy Policy from time to time. Continued use of our website means you accept the revised terms.</p>
+    <h3>7. Updates</h3>
+    <p>We may update this Privacy Policy from time to time. Continued use of our website constitutes acceptance of the revised terms.</p>
 
-      <h3>8. Contact Us</h3>
-      <p>If you have any questions, please contact:<br>
-      <strong>Deccan Identity Software Limited</strong><br>
-      Email: <a href="mailto:info@deccanidentity.com">info@deccanidentity.com</a></p>
-    </div>
+    <h3>8. Contact Us</h3>
+    <p>If you have any questions, please contact:<br>
+    <strong>Deccan Identity Software Limited</strong><br>
+    Email: <a href="mailto:info@deccanidentity.com">info@deccanidentity.com</a><br>
+    Phone: +91 90000 35869</p>
+  </div>
 
-    <div class="modal-footer">
-      <label>
-        <input type="checkbox" id="agreeCheck"> I agree to the Privacy Policy @ Deccan Identity Software Private Limited
-      </label>
-      <button id="submitPrivacy" disabled>Submit</button>
+  <div class="policy-footer">
+    <label>
+      <input type="checkbox" id="agreeCheck"> I agree to the Privacy Policy @ Deccan Identity Software Private Limited
+    </label>
+    <div style="display: flex; gap: 0.75rem; justify-content: flex-end;">
+      <button class="btn-modern btn-modern-outline btn-modern-sm" onclick="window.history.back()">Back</button>
+      <button id="submitPrivacy" class="btn-modern btn-modern-primary btn-modern-sm" disabled>Agree & Continue</button>
     </div>
   </div>
 </div>
@@ -58,15 +135,12 @@
   const submitPrivacy = document.getElementById("submitPrivacy");
   const declinePrivacy = document.getElementById("declinePrivacy");
 
-
-  // Enable button only if checkbox is ticked
   agreeCheck.addEventListener("change", () => {
     submitPrivacy.disabled = !agreeCheck.checked;
   });
 
-  // Redirect back to previous page
   submitPrivacy.addEventListener("click", () => {
-    window.history.back();
+    window.location.href = "index.html";
   });
 
   declinePrivacy.addEventListener("click", () => {
