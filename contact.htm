@@ -16,39 +16,144 @@
   
   <link rel="stylesheet" href="css/modern.css">
   <style>
+    /* Modern Contact Page Layout & Grid */
     .contact-grid {
       display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
+      grid-template-columns: 1.15fr 0.85fr;
       gap: 2rem;
       align-items: flex-start;
     }
+
+    /* Hero Quick Contact Bar */
+    .hero-quick-chips {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+    }
+    .quick-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.55rem 1.1rem;
+      border-radius: var(--radius-full);
+      background: rgba(255, 255, 255, 0.85);
+      border: 1px solid var(--border-subtle);
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-heading);
+      text-decoration: none;
+      backdrop-filter: blur(8px);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+      transition: all 0.25s ease;
+    }
+    .quick-chip:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 14px rgba(37, 99, 235, 0.12);
+    }
+    .quick-chip.chip-wa {
+      color: #15803d;
+      background: #f0fdf4;
+      border-color: #bbf7d0;
+    }
+    .quick-chip.chip-wa:hover {
+      border-color: #22c55e;
+      background: #dcfce7;
+      color: #166534;
+      box-shadow: 0 6px 14px rgba(34, 197, 94, 0.16);
+    }
+
+    /* Contact Form Card */
     .contact-card-box {
       background: #ffffff;
       border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-lg);
-      padding: 1.85rem;
-      box-shadow: var(--shadow-sm);
+      border-radius: var(--radius-xl);
+      padding: 2.25rem;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);
+      position: relative;
     }
+    .form-header-group {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 0.75rem;
+    }
+    .form-header-icon {
+      width: 46px;
+      height: 46px;
+      border-radius: var(--radius-md);
+      background: var(--primary-light);
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.35rem;
+      flex-shrink: 0;
+    }
+    .form-header-group h2 {
+      font-size: 1.5rem;
+      color: #0f172a;
+      margin: 0;
+      font-family: var(--font-heading);
+      font-weight: 700;
+    }
+    .form-subtitle {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      margin-bottom: 1.75rem;
+      line-height: 1.5;
+    }
+
+    /* Form Fields with Icon Accents */
     .form-group {
-      margin-bottom: 1.15rem;
+      margin-bottom: 1.25rem;
     }
     .form-label {
       display: block;
       font-weight: 600;
-      font-size: 0.90rem;
+      font-size: 0.88rem;
       margin-bottom: 0.45rem;
       color: #334155;
     }
-    .form-input, .form-textarea {
+    .input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    .input-icon {
+      position: absolute;
+      left: 1rem;
+      color: #94a3b8;
+      font-size: 0.95rem;
+      pointer-events: none;
+      transition: color 0.2s ease;
+    }
+    .form-input {
       width: 100%;
-      padding: 0.75rem 0.95rem;
+      padding: 0.82rem 1rem 0.82rem 2.75rem;
       border: 1px solid #cbd5e1;
       border-radius: var(--radius-md);
       font-family: inherit;
-      font-size: 0.92rem;
+      font-size: 0.95rem; /* 16px minimum prevents iOS zoom */
       color: #0f172a;
       transition: var(--transition);
       background: #f8fafc;
+    }
+    .form-textarea {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      border: 1px solid #cbd5e1;
+      border-radius: var(--radius-md);
+      font-family: inherit;
+      font-size: 0.95rem;
+      color: #0f172a;
+      transition: var(--transition);
+      background: #f8fafc;
+      resize: vertical;
+      min-height: 120px;
     }
     .form-input:focus, .form-textarea:focus {
       outline: none;
@@ -56,12 +161,17 @@
       background: #ffffff;
       box-shadow: 0 0 0 4px var(--primary-light);
     }
+    .form-input:focus + .input-icon,
+    .input-wrapper:focus-within .input-icon {
+      color: var(--primary);
+    }
     .form-status {
-      margin-top: 0.85rem;
-      padding: 0.75rem 0.95rem;
+      margin-top: 1rem;
+      padding: 0.85rem 1.1rem;
       border-radius: var(--radius-md);
       font-size: 0.90rem;
       display: none;
+      line-height: 1.5;
     }
     .form-status.success {
       display: block;
@@ -75,50 +185,331 @@
       color: #b91c1c;
       border: 1px solid #fca5a5;
     }
+
+    /* Branch Office Cards */
     .branch-card {
-      background: #f8fafc;
+      background: #ffffff;
       border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-md);
-      padding: 1.25rem;
-      margin-bottom: 1rem;
-      transition: var(--transition);
+      border-radius: var(--radius-lg);
+      padding: 1.35rem 1.4rem;
+      margin-bottom: 1.15rem;
+      transition: all 0.25s ease;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.03);
     }
     .branch-card:hover {
-      border-color: var(--primary);
+      border-color: rgba(37, 99, 235, 0.35);
       transform: translateY(-2px);
-      box-shadow: var(--shadow-sm);
+      box-shadow: 0 8px 24px rgba(37, 99, 235, 0.08);
     }
-    .branch-card h4 {
-      font-size: 1.05rem;
-      margin-bottom: 0.5rem;
+    .branch-header {
       display: flex;
       align-items: center;
+      justify-content: space-between;
       gap: 0.5rem;
-      color: #0f172a;
+      margin-bottom: 0.55rem;
+      flex-wrap: wrap;
     }
-    .branch-card p {
+    .branch-title {
+      font-size: 1.05rem;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      color: #0f172a;
+      font-weight: 700;
+    }
+    .branch-badge {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.6rem;
+      border-radius: var(--radius-full);
+    }
+    .branch-badge.badge-hq {
+      background: #eff6ff;
+      color: var(--primary);
+      border: 1px solid #bfdbfe;
+    }
+    .branch-badge.badge-branch {
+      background: #f0fdfa;
+      color: #0d9488;
+      border: 1px solid #99f6e4;
+    }
+    .branch-address {
       font-size: 0.88rem;
       color: #64748b;
-      margin-bottom: 0.4rem;
+      margin-bottom: 0.85rem;
       line-height: 1.5;
     }
-    .map-container {
-      margin-top: 2.5rem;
+    .branch-timing {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.80rem;
+      color: #64748b;
+      margin-bottom: 0.85rem;
+      background: #f8fafc;
+      padding: 0.35rem 0.65rem;
+      border-radius: var(--radius-sm);
+      width: fit-content;
+    }
+
+    /* Branch Action Pills (Thumb-friendly touch buttons) */
+    .branch-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+      margin-top: 0.5rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid #f1f5f9;
+    }
+    .action-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      padding: 0.52rem 0.85rem;
+      border-radius: var(--radius-md);
+      font-size: 0.84rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      color: #334155;
+    }
+    .action-pill:hover {
+      background: #ffffff;
+      border-color: var(--primary);
+      color: var(--primary);
+      transform: translateY(-1px);
+      box-shadow: 0 3px 8px rgba(0,0,0,0.06);
+    }
+    .action-pill.pill-call {
+      color: #0369a1;
+      background: #f0f9ff;
+      border-color: #bae6fd;
+    }
+    .action-pill.pill-call:hover {
+      background: #e0f2fe;
+      border-color: #7dd3fc;
+      color: #0284c7;
+    }
+    .action-pill.pill-wa {
+      color: #15803d;
+      background: #f0fdf4;
+      border-color: #bbf7d0;
+    }
+    .action-pill.pill-wa:hover {
+      background: #dcfce7;
+      border-color: #86efac;
+      color: #166534;
+    }
+    .action-pill.pill-email {
+      color: #7c3aed;
+      background: #faf5ff;
+      border-color: #e9d5ff;
+    }
+    .action-pill.pill-email:hover {
+      background: #f3e8ff;
+      border-color: #d8b4fe;
+      color: #6d28d9;
+    }
+    .action-pill.pill-map {
+      color: #475569;
+    }
+
+    /* WhatsApp Support Banner Card */
+    .whatsapp-support-card {
+      margin-top: 1.25rem;
+      background: linear-gradient(135deg, #128c7e 0%, #25d366 100%);
       border-radius: var(--radius-lg);
-      overflow: hidden;
-      box-shadow: var(--shadow-sm);
+      padding: 1.25rem 1.4rem;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      text-decoration: none;
+      box-shadow: 0 8px 20px rgba(37, 211, 102, 0.25);
+      transition: all 0.3s ease;
+    }
+    .whatsapp-support-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px rgba(37, 211, 102, 0.35);
+      color: #ffffff;
+    }
+    .wa-card-content {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    .wa-card-icon {
+      font-size: 2.2rem;
+      line-height: 1;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));
+    }
+    .wa-card-text h5 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin: 0 0 0.2rem;
+      color: #ffffff;
+    }
+    .wa-card-text p {
+      font-size: 0.82rem;
+      margin: 0;
+      color: rgba(255, 255, 255, 0.92);
+      line-height: 1.35;
+    }
+    .wa-card-arrow {
+      font-size: 1.15rem;
+      flex-shrink: 0;
+      background: rgba(255, 255, 255, 0.2);
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-full);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.2s ease;
+    }
+    .whatsapp-support-card:hover .wa-card-arrow {
+      transform: translateX(4px);
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+    /* Google Maps Container */
+    .map-wrapper {
+      margin-top: 2.5rem;
+      background: #ffffff;
       border: 1px solid var(--border-subtle);
-      height: 320px;
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(15, 23, 42, 0.04);
+    }
+    .map-header {
+      padding: 1.15rem 1.4rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      border-bottom: 1px solid #f1f5f9;
+      background: #f8fafc;
+      flex-wrap: wrap;
+    }
+    .map-title {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #0f172a;
+      margin: 0;
+    }
+    .map-subtext {
+      font-size: 0.82rem;
+      color: #64748b;
+      margin: 0;
+    }
+    .map-link-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.84rem;
+      font-weight: 600;
+      color: var(--primary);
+      text-decoration: none;
+    }
+    .map-link-btn:hover {
+      text-decoration: underline;
+    }
+    .map-container {
+      height: 340px;
+      width: 100%;
     }
     .map-container iframe {
       width: 100%;
       height: 100%;
       border: 0;
     }
+
+    /* Mobile Responsive Optimizations */
     @media (max-width: 991px) {
       .contact-grid {
         grid-template-columns: 1fr;
-        gap: 1.5rem;
+        gap: 1.75rem;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .contact-card-box {
+        padding: 1.35rem 1.15rem;
+        border-radius: var(--radius-lg);
+      }
+      .form-header-group h2 {
+        font-size: 1.3rem;
+      }
+      .form-header-icon {
+        width: 38px;
+        height: 38px;
+        font-size: 1.15rem;
+      }
+      .hero-quick-chips {
+        flex-direction: column;
+        width: 100%;
+      }
+      .quick-chip {
+        width: 100%;
+        justify-content: center;
+      }
+      .branch-card {
+        padding: 1.15rem 1rem;
+      }
+      .branch-actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.45rem;
+      }
+      .action-pill {
+        width: 100%;
+        font-size: 0.80rem;
+        padding: 0.55rem 0.5rem;
+      }
+      .branch-actions .pill-email,
+      .branch-actions .pill-map {
+        grid-column: span 1;
+      }
+      .branch-actions .action-pill:nth-child(3):last-child {
+        grid-column: 1 / -1;
+      }
+      .whatsapp-support-card {
+        padding: 1rem 1.15rem;
+      }
+      .wa-card-icon {
+        font-size: 1.8rem;
+      }
+      .wa-card-text h5 {
+        font-size: 0.95rem;
+      }
+      .wa-card-text p {
+        font-size: 0.78rem;
+      }
+      .wa-card-arrow {
+        display: none;
+      }
+      .map-header {
+        padding: 1rem 1.15rem;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+      }
+      .map-container {
+        height: 260px;
+      }
+      /* Extra bottom padding to clear floating WhatsApp and AI widgets */
+      .section-padding {
+        padding-bottom: 95px !important;
       }
     }
   </style>
@@ -368,11 +759,16 @@
 
           <!-- Mobile Drawer Footer & Actions -->
           <li class="mobile-drawer-actions">
-            <a href="https://demo.deccanidentity.in/" target="_blank" class="btn-modern btn-modern-cyan btn-modern-sm" title="Website Templates & Live Showcases">
-              <i class="fa-solid fa-laptop-code"></i> Websites
-            </a>
-            <a href="https://apps.deccanidentity.in/" target="_blank" class="btn-modern btn-modern-purple btn-modern-sm" title="Mobile & Cloud App Showcases">
-              <i class="fa-solid fa-mobile-screen-button"></i> Apps
+            <div class="mobile-drawer-grid">
+              <a href="https://demo.deccanidentity.in/" target="_blank" class="btn-modern btn-modern-cyan btn-modern-sm" title="Website Templates & Live Showcases">
+                <i class="fa-solid fa-laptop-code"></i> Websites
+              </a>
+              <a href="https://apps.deccanidentity.in/" target="_blank" class="btn-modern btn-modern-purple btn-modern-sm" title="Mobile & Cloud App Showcases">
+                <i class="fa-solid fa-mobile-screen-button"></i> Apps
+              </a>
+            </div>
+            <a href="https://wa.me/918186035869" target="_blank" class="btn-modern btn-whatsapp btn-modern-sm" style="width: 100%; justify-content: center;">
+              <i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp (+91 81860 35869)
             </a>
           </li>
         </ul>
@@ -401,6 +797,19 @@
       <p style="color: var(--text-muted); font-size: 1.15rem; max-width: 680px; margin: 0 auto;">
         Every successful partnership begins with a conversation. Share your requirements and our engineering team will respond within 1–2 business days.
       </p>
+
+      <!-- Quick Contact Touch Chips -->
+      <div class="hero-quick-chips">
+        <a href="tel:+919000035869" class="quick-chip" title="Call Hyderabad Headquarters">
+          <i class="fa-solid fa-phone" style="color: var(--primary);"></i> +91 90000 35869
+        </a>
+        <a href="https://wa.me/918186035869" target="_blank" class="quick-chip chip-wa" title="Instant WhatsApp Support">
+          <i class="fa-brands fa-whatsapp"></i> WhatsApp (+91 81860 35869)
+        </a>
+        <a href="mailto:info@deccanidentity.com" class="quick-chip" title="Corporate Email Inquiries">
+          <i class="fa-solid fa-envelope" style="color: var(--secondary);"></i> info@deccanidentity.com
+        </a>
+      </div>
     </div>
   </section>
 
@@ -410,33 +819,52 @@
       <div class="contact-grid">
         <!-- Contact Form Box -->
         <div class="contact-card-box">
-          <h2 style="font-size: 1.75rem; margin-bottom: 0.5rem; color: #0f172a;">📩 Send Us a Message</h2>
-          <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 2rem;">
-            Please provide your details below. We take data confidentiality and Zero-Trust privacy seriously.
+          <div class="form-header-group">
+            <div class="form-header-icon">
+              <i class="fa-solid fa-envelope-open-text"></i>
+            </div>
+            <div>
+              <h2>Send Us a Message</h2>
+              <div style="font-size: 0.80rem; color: #16a34a; font-weight: 600; display: flex; align-items: center; gap: 0.35rem; margin-top: 0.2rem;">
+                <i class="fa-solid fa-shield-halved"></i> 256-bit Encrypted • Response within 24–48 hrs
+              </div>
+            </div>
+          </div>
+          <p class="form-subtitle">
+            Please fill out your details below. Our solutions engineering team will review your requirements under strict confidentiality.
           </p>
 
           <form id="contactForm">
             <div class="form-group">
               <label class="form-label" for="name">Full Name *</label>
-              <input type="text" name="name" id="name" class="form-input" placeholder="e.g. Rahul Sharma" required>
+              <div class="input-wrapper">
+                <i class="fa-regular fa-user input-icon"></i>
+                <input type="text" name="name" id="name" class="form-input" placeholder="e.g. Rahul Sharma" autocomplete="name" required>
+              </div>
             </div>
 
             <div class="form-group">
               <label class="form-label" for="email">Corporate Email *</label>
-              <input type="email" name="email" id="email" class="form-input" placeholder="e.g. rahul@company.com" required>
+              <div class="input-wrapper">
+                <i class="fa-regular fa-envelope input-icon"></i>
+                <input type="email" name="email" id="email" class="form-input" placeholder="e.g. rahul@company.com" autocomplete="email" required>
+              </div>
             </div>
 
             <div class="form-group">
               <label class="form-label" for="mobile">Mobile Number (+91) *</label>
-              <input type="tel" name="mobile" id="mobile" class="form-input" placeholder="e.g. +91 98765 43210" required>
+              <div class="input-wrapper">
+                <i class="fa-solid fa-phone input-icon"></i>
+                <input type="tel" name="mobile" id="mobile" class="form-input" placeholder="e.g. +91 98765 43210" autocomplete="tel" inputmode="tel" required>
+              </div>
             </div>
 
             <div class="form-group">
               <label class="form-label" for="message">How can we help you? *</label>
-              <textarea name="message" id="message" rows="5" class="form-textarea" placeholder="Tell us about your project, IAM needs, web/mobile requirements, or training inquiry..." required></textarea>
+              <textarea name="message" id="message" rows="5" class="form-textarea" placeholder="Tell us about your project, IAM architecture, web/mobile app requirements, or training inquiry..." required></textarea>
             </div>
 
-            <button type="submit" id="submitBtn" class="btn-modern btn-modern-primary" style="width: 100%;">
+            <button type="submit" id="submitBtn" class="btn-modern btn-modern-primary" style="width: 100%; justify-content: center; padding: 0.85rem 1.5rem; font-size: 1rem;">
               <i class="fa-solid fa-paper-plane"></i> Send Message
             </button>
 
@@ -446,82 +874,134 @@
 
         <!-- Sidebar / Office Information -->
         <div>
-          <!-- Registered Office -->
+          <!-- Registered Corporate Office -->
           <div class="branch-card">
-            <h4>
-              <i class="fa-solid fa-building-flag" style="color: var(--primary);"></i>
-              Registered Corporate Office
-            </h4>
-            <p>
+            <div class="branch-header">
+              <h4 class="branch-title">
+                <i class="fa-solid fa-building-shield" style="color: var(--primary);"></i>
+                Corporate Headquarters
+              </h4>
+              <span class="branch-badge badge-hq"><i class="fa-solid fa-star"></i> HQ</span>
+            </div>
+            <p class="branch-address">
               <strong>Deccan IDentity Software Pvt. Ltd.</strong><br>
               Adibatla, Hyderabad, Telangana, 501510, India
             </p>
-            <p>
-              <i class="fa-solid fa-phone" style="color: var(--secondary);"></i>
-              <a href="tel:+919000035869">+91 90000 35869</a> &nbsp;|&nbsp;
-              <a href="https://wa.me/message/IEJ3MUBFNFSEA1" target="_blank" style="color: #25d366; font-weight: 600;">
+            <div class="branch-timing">
+              <i class="fa-regular fa-clock"></i> Mon – Sat: 9:30 AM – 6:30 PM IST
+            </div>
+            <div class="branch-actions">
+              <a href="tel:+919000035869" class="action-pill pill-call" title="Call Hyderabad HQ">
+                <i class="fa-solid fa-phone"></i> +91 90000 35869
+              </a>
+              <a href="https://wa.me/918186035869" target="_blank" class="action-pill pill-wa" title="WhatsApp Hyderabad HQ">
                 <i class="fa-brands fa-whatsapp"></i> WhatsApp
               </a>
-            </p>
-            <p>
-              <i class="fa-solid fa-envelope" style="color: var(--accent);"></i>
-              <a href="mailto:info@deccanidentity.com">info@deccanidentity.com</a>
-            </p>
+              <a href="mailto:info@deccanidentity.com" class="action-pill pill-email" title="Email Inquiries">
+                <i class="fa-solid fa-envelope"></i> Email
+              </a>
+              <a href="https://maps.google.com/?q=Adibatla+Hyderabad+Telangana+501510" target="_blank" class="action-pill pill-map" title="View on Google Maps">
+                <i class="fa-solid fa-location-arrow"></i> Map
+              </a>
+            </div>
           </div>
 
           <!-- Ongole Branch -->
           <div class="branch-card">
-            <h4>
-              <i class="fa-solid fa-location-dot" style="color: var(--accent-cyan);"></i>
-              Ongole Branch Office
-            </h4>
-            <p>
+            <div class="branch-header">
+              <h4 class="branch-title">
+                <i class="fa-solid fa-location-dot" style="color: var(--accent-cyan);"></i>
+                Ongole Branch Office
+              </h4>
+              <span class="branch-badge badge-branch">Branch</span>
+            </div>
+            <p class="branch-address">
               Gupta's Midtown, Ongole,<br>
               Andhra Pradesh, 523001, India
             </p>
-            <p>
-              <i class="fa-solid fa-phone" style="color: var(--secondary);"></i>
-              <a href="tel:+919494765679">+91 94947 65679</a> &nbsp;|&nbsp;
-              <a href="https://wa.me/919494765679" target="_blank" style="color: #25d366; font-weight: 600;">
+            <div class="branch-timing">
+              <i class="fa-regular fa-clock"></i> Mon – Sat: 9:30 AM – 6:30 PM IST
+            </div>
+            <div class="branch-actions">
+              <a href="tel:+919494765679" class="action-pill pill-call" title="Call Ongole Branch">
+                <i class="fa-solid fa-phone"></i> +91 94947 65679
+              </a>
+              <a href="https://wa.me/918186035869" target="_blank" class="action-pill pill-wa" title="WhatsApp Ongole Branch">
                 <i class="fa-brands fa-whatsapp"></i> WhatsApp
               </a>
-            </p>
+              <a href="https://maps.google.com/?q=Gupta's+Midtown+Ongole+Andhra+Pradesh" target="_blank" class="action-pill pill-map" title="View on Google Maps">
+                <i class="fa-solid fa-location-arrow"></i> Map
+              </a>
+            </div>
           </div>
 
           <!-- Tirupati Branch -->
           <div class="branch-card">
-            <h4>
-              <i class="fa-solid fa-location-dot" style="color: var(--accent-emerald);"></i>
-              Tirupati Branch Office
-            </h4>
-            <p>
+            <div class="branch-header">
+              <h4 class="branch-title">
+                <i class="fa-solid fa-location-dot" style="color: var(--accent-emerald);"></i>
+                Tirupati Branch Office
+              </h4>
+              <span class="branch-badge badge-branch">Branch</span>
+            </div>
+            <p class="branch-address">
               Mangalam, Tirupati,<br>
               Andhra Pradesh, 517501, India
             </p>
-            <p>
-              <i class="fa-solid fa-phone" style="color: var(--secondary);"></i>
-              <a href="tel:+919000035869">+91 90000 35869</a> &nbsp;|&nbsp;
-              <a href="https://wa.me/message/IEJ3MUBFNFSEA1" target="_blank" style="color: #25d366; font-weight: 600;">
+            <div class="branch-timing">
+              <i class="fa-regular fa-clock"></i> Mon – Sat: 9:30 AM – 6:30 PM IST
+            </div>
+            <div class="branch-actions">
+              <a href="tel:+919000035869" class="action-pill pill-call" title="Call Tirupati Branch">
+                <i class="fa-solid fa-phone"></i> +91 90000 35869
+              </a>
+              <a href="https://wa.me/918186035869" target="_blank" class="action-pill pill-wa" title="WhatsApp Tirupati Branch">
                 <i class="fa-brands fa-whatsapp"></i> WhatsApp
               </a>
-            </p>
+              <a href="https://maps.google.com/?q=Mangalam+Tirupati+Andhra+Pradesh" target="_blank" class="action-pill pill-map" title="View on Google Maps">
+                <i class="fa-solid fa-location-arrow"></i> Map
+              </a>
+            </div>
           </div>
 
-          <!-- Quick Connect on WhatsApp Button -->
-          <div style="margin-top: 1.5rem;">
-            <a href="https://wa.me/message/IEJ3MUBFNFSEA1" target="_blank" class="btn-modern btn-whatsapp" style="width: 100%;">
-              <i class="fa-brands fa-whatsapp" style="font-size: 1.25rem;"></i> Immediate Support on WhatsApp
-            </a>
-          </div>
+          <!-- Quick Connect on WhatsApp Support Banner Card -->
+          <a href="https://wa.me/918186035869" target="_blank" class="whatsapp-support-card" title="Chat Directly on WhatsApp">
+            <div class="wa-card-content">
+              <div class="wa-card-icon">
+                <i class="fa-brands fa-whatsapp"></i>
+              </div>
+              <div class="wa-card-text">
+                <h5>Immediate Support on WhatsApp</h5>
+                <p>Chat directly with our solutions architects • Avg reply in 15 mins</p>
+              </div>
+            </div>
+            <div class="wa-card-arrow">
+              <i class="fa-solid fa-arrow-right"></i>
+            </div>
+          </a>
         </div>
       </div>
 
-      <!-- Google Maps Embed Container -->
-      <div class="map-container">
-        <iframe
-          src="https://maps.google.com/maps?q=Adibatla%20Hyderabad%20Telangana%20501510&t=&z=13&ie=UTF8&iwloc=&output=embed"
-          title="DeccanIDentity Hyderabad Location"
-          loading="lazy"></iframe>
+      <!-- Google Maps Embed Wrapper -->
+      <div class="map-wrapper">
+        <div class="map-header">
+          <div>
+            <h4 class="map-title">
+              <i class="fa-solid fa-map-location-dot" style="color: var(--primary);"></i>
+              Hyderabad Corporate Headquarters Location
+            </h4>
+            <p class="map-subtext">Adibatla IT Aerospace & Tech Corridor, Hyderabad, Telangana, 501510</p>
+          </div>
+          <a href="https://maps.google.com/?q=Adibatla+Hyderabad+Telangana+501510" target="_blank" class="map-link-btn">
+            Open in Google Maps <i class="fa-solid fa-arrow-up-right-from-square"></i>
+          </a>
+        </div>
+        <div class="map-container">
+          <iframe
+            src="https://maps.google.com/maps?q=Adibatla%20Hyderabad%20Telangana%20501510&t=&z=13&ie=UTF8&iwloc=&output=embed"
+            title="DeccanIDentity Hyderabad Location"
+            loading="lazy"></iframe>
+        </div>
       </div>
     </div>
   </section>
@@ -539,7 +1019,7 @@
             DeccanIDentity delivers Zero-Trust IAM, full-stack AI web engineering, and enterprise mobility solutions with 24x7 expert support.
           </p>
           <div class="social-links">
-            <a href="https://wa.me/message/IEJ3MUBFNFSEA1" target="_blank" class="social-btn" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+            <a href="https://wa.me/918186035869" target="_blank" class="social-btn" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
             <a href="https://www.linkedin.com/in/deccanidentity" target="_blank" class="social-btn" title="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
             <a href="https://www.fb.com/deccanidentity" target="_blank" class="social-btn" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
             <a href="https://www.instagram.com/deccanidentity_india" target="_blank" class="social-btn" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
@@ -623,7 +1103,7 @@
     <button class="back-to-top" id="backToTop" title="Back to top" aria-label="Back to top">
       <i class="fa-solid fa-arrow-up"></i>
     </button>
-    <a href="https://wa.me/message/IEJ3MUBFNFSEA1" target="_blank" class="floating-whatsapp" title="Chat on WhatsApp" aria-label="Chat on WhatsApp">
+    <a href="https://wa.me/918186035869" target="_blank" class="floating-whatsapp" title="Chat on WhatsApp" aria-label="Chat on WhatsApp">
       <i class="fa-brands fa-whatsapp"></i>
     </a>
   </div>

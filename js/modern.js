@@ -581,7 +581,7 @@ function initGlobalRobotAssistant() {
         links: [
           { label: 'Explore Websites', href: 'https://demo.deccanidentity.in/', target: '_blank', icon: '↗' },
           { label: 'PlotMark Demo', href: 'https://demo.deccanidentity.in/demo/plotmark', target: '_blank', icon: '↗' },
-          { label: 'Chat on WhatsApp', href: 'https://wa.me/message/IEJ3MUBFNFSEA1', target: '_blank', icon: '↗' },
+          { label: 'Chat on WhatsApp', href: 'https://wa.me/918186035869', target: '_blank', icon: '↗' },
         ]
       };
     }
@@ -611,16 +611,16 @@ function initGlobalRobotAssistant() {
         text: "We offer transparent, upfront packages starting from ₹14,999 for turnkey templates, ₹29,999 for full custom branding with WhatsApp CRM, up to bespoke enterprise full-stack software and cloud engineering.",
         links: [
           { label: 'View Pricing Tiers', href: 'https://demo.deccanidentity.in/pricing', target: '_blank', icon: '↗' },
-          { label: 'Get Custom Quote on WhatsApp', href: 'https://wa.me/message/IEJ3MUBFNFSEA1', target: '_blank', icon: '↗' },
+          { label: 'Get Custom Quote on WhatsApp', href: 'https://wa.me/918186035869', target: '_blank', icon: '↗' },
         ]
       };
     }
 
     if (q.includes('whatsapp') || q.includes('contact') || q.includes('phone') || q.includes('talk') || q.includes('human')) {
       return {
-        text: "You can reach our engineering team directly on WhatsApp or phone at +91 90000 35869 / +91 94947 65679. We typically respond within 15 minutes!",
+        text: "You can reach our engineering team directly on WhatsApp at +91 81860 35869 or call +91 90000 35869 / +91 94947 65679. We typically respond within 15 minutes!",
         links: [
-          { label: 'Chat on WhatsApp Now', href: 'https://wa.me/message/IEJ3MUBFNFSEA1', target: '_blank', icon: '↗' },
+          { label: 'Chat on WhatsApp Now', href: 'https://wa.me/918186035869', target: '_blank', icon: '↗' },
           { label: 'Contact Us Form', href: 'contact.htm', icon: '→' },
         ]
       };
@@ -631,7 +631,7 @@ function initGlobalRobotAssistant() {
       links: [
         { label: 'Explore Websites', href: 'https://demo.deccanidentity.in/', target: '_blank', icon: '↗' },
         { label: 'Explore Apps', href: 'https://apps.deccanidentity.in/', target: '_blank', icon: '↗' },
-        { label: 'Message on WhatsApp', href: 'https://wa.me/message/IEJ3MUBFNFSEA1', target: '_blank', icon: '↗' },
+        { label: 'Message on WhatsApp', href: 'https://wa.me/918186035869', target: '_blank', icon: '↗' },
       ]
     };
   }
