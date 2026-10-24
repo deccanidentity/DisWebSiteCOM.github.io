@@ -10,48 +10,121 @@ document.addEventListener('DOMContentLoaded', () => {
     el.textContent = currentYear;
   });
 
-  // 2. Mobile Drawer Navigation Toggle
+  // 2. Enterprise Flagship Mobile Drawer & Navigation
   const mobileToggle = document.getElementById('mobileNavToggle');
   const navLinks = document.getElementById('navLinks');
+  const navBackdrop = document.getElementById('navBackdrop');
 
   if (mobileToggle && navLinks) {
+    const closeDrawer = () => {
+      navLinks.classList.remove('active');
+      mobileToggle.classList.remove('is-active');
+      mobileToggle.setAttribute('aria-expanded', 'false');
+      document.body.classList.remove('nav-drawer-open');
+      if (navBackdrop) {
+        navBackdrop.classList.remove('active');
+      }
+      // Reset mobile accordions
+      navLinks.querySelectorAll('.has-dropdown.mobile-open').forEach((item) => {
+        item.classList.remove('mobile-open');
+        const trigger = item.querySelector('.dropdown-trigger');
+        if (trigger) trigger.setAttribute('aria-expanded', 'false');
+      });
+    };
+
+    const openDrawer = () => {
+      navLinks.classList.add('active');
+      mobileToggle.classList.add('is-active');
+      mobileToggle.setAttribute('aria-expanded', 'true');
+      document.body.classList.add('nav-drawer-open');
+      if (navBackdrop) {
+        navBackdrop.classList.add('active');
+      }
+    };
+
     mobileToggle.addEventListener('click', (e) => {
       e.stopPropagation();
-      const isOpen = navLinks.classList.toggle('active');
-      mobileToggle.setAttribute('aria-expanded', isOpen);
-      const icon = mobileToggle.querySelector('i');
-      if (icon) {
-        if (isOpen) {
-          icon.classList.remove('fa-bars');
-          icon.classList.add('fa-xmark');
-        } else {
-          icon.classList.remove('fa-xmark');
-          icon.classList.add('fa-bars');
-        }
+      const isOpen = navLinks.classList.contains('active');
+      if (isOpen) {
+        closeDrawer();
+      } else {
+        openDrawer();
       }
+    });
+
+    // Close on backdrop tap
+    if (navBackdrop) {
+      navBackdrop.addEventListener('click', () => {
+        closeDrawer();
+      });
+    }
+
+    // Mobile Accordion toggle for dropdown chevrons
+    navLinks.querySelectorAll('.has-dropdown').forEach((item) => {
+      const trigger = item.querySelector('.dropdown-trigger');
+      const chevron = item.querySelector('.nav-chevron');
+
+      if (chevron) {
+        chevron.addEventListener('click', (e) => {
+          if (window.innerWidth <= 1040) {
+            e.preventDefault();
+            e.stopPropagation();
+            const wasOpen = item.classList.contains('mobile-open');
+            // Close other sibling dropdowns for clean accordion effect
+            navLinks.querySelectorAll('.has-dropdown.mobile-open').forEach((sibling) => {
+              if (sibling !== item) {
+                sibling.classList.remove('mobile-open');
+                const sibTrigger = sibling.querySelector('.dropdown-trigger');
+                if (sibTrigger) sibTrigger.setAttribute('aria-expanded', 'false');
+              }
+            });
+            item.classList.toggle('mobile-open');
+            if (trigger) {
+              trigger.setAttribute('aria-expanded', !wasOpen ? 'true' : 'false');
+            }
+          }
+        });
+      }
+    });
+
+    // Auto-close drawer when clicking on any navigation destination link
+    navLinks.querySelectorAll('a:not(.dropdown-trigger), .mega-item, .featured-link-pill, .tech-cta-link, .mobile-drawer-btns a, .mobile-contact-pill').forEach((link) => {
+      link.addEventListener('click', () => {
+        closeDrawer();
+      });
     });
 
     // Close mobile nav when clicking outside
     document.addEventListener('click', (e) => {
-      if (!navLinks.contains(e.target) && !mobileToggle.contains(e.target)) {
-        navLinks.classList.remove('active');
-        mobileToggle.setAttribute('aria-expanded', 'false');
-        const icon = mobileToggle.querySelector('i');
-        if (icon) {
-          icon.classList.remove('fa-xmark');
-          icon.classList.add('fa-bars');
-        }
+      if (navLinks.classList.contains('active') && !navLinks.contains(e.target) && !mobileToggle.contains(e.target)) {
+        closeDrawer();
       }
     });
+
+    // Close drawer on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && navLinks.classList.contains('active')) {
+        closeDrawer();
+      }
+    });
+
+    // Reset on window resize to desktop
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 1040 && navLinks.classList.contains('active')) {
+        closeDrawer();
+      }
+    }, { passive: true });
   }
 
-  // 3. Header Scrolled State & Back To Top Visibility
+  // 3. Header Scrolled State, Reading Progress Bar & Back To Top Visibility
   const header = document.querySelector('.site-header');
   const backToTop = document.getElementById('backToTop');
+  const scrollProgress = document.getElementById('scrollProgress');
 
-  window.addEventListener('scroll', () => {
+  const onScrollHandler = () => {
     const scrollY = window.scrollY;
 
+    // Header Elevation
     if (header) {
       if (scrollY > 20) {
         header.classList.add('scrolled');
@@ -60,6 +133,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
+    // Back to Top Button
     if (backToTop) {
       if (scrollY > 350) {
         backToTop.classList.add('visible');
@@ -67,7 +141,20 @@ document.addEventListener('DOMContentLoaded', () => {
         backToTop.classList.remove('visible');
       }
     }
-  }, { passive: true });
+
+    // Flagship Reading Scroll Progress Line
+    if (scrollProgress) {
+      const docElem = document.documentElement;
+      const docHeight = docElem.scrollHeight - docElem.clientHeight;
+      if (docHeight > 0) {
+        const scrolledPct = (scrollY / docHeight) * 100;
+        scrollProgress.style.width = Math.min(100, Math.max(0, scrolledPct)) + '%';
+      }
+    }
+  };
+
+  window.addEventListener('scroll', onScrollHandler, { passive: true });
+  onScrollHandler();
 
   // 4. Smooth Back To Top Click
   if (backToTop) {
@@ -203,25 +290,28 @@ function initGlobalRobotAssistant() {
   modalOverlay.innerHTML = `
     <div class="ask-ai-window" role="dialog" aria-modal="true" aria-label="DeccanIDentity AI Assistant">
       <div class="ask-ai-header">
-        <div class="ask-ai-header__brand">
-          <div class="ask-ai-header__avatar">
-            <svg width="24" height="24" viewBox="0 0 100 92" fill="none">
-              <rect x="14" y="23" width="56" height="49" rx="18" fill="#e2e8f0" />
-              <rect x="21" y="31" width="42" height="33" rx="11" fill="#0b1329" />
-              <circle cx="33" cy="45" r="4" fill="#38bdf8" />
-              <circle cx="51" cy="45" r="4" fill="#38bdf8" />
-              <path d="M 38 54 Q 42 58 46 54" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" />
-            </svg>
-          </div>
-          <div class="ask-ai-header__info">
-            <div class="ask-ai-header__title">
-              DeccanIDentity AI
-              <span class="ask-ai-header__badge">● Online</span>
+        <div class="ask-ai-drag-handle" aria-hidden="true"></div>
+        <div class="ask-ai-header__top-row">
+          <div class="ask-ai-header__brand">
+            <div class="ask-ai-header__avatar">
+              <svg width="24" height="24" viewBox="0 0 100 92" fill="none">
+                <rect x="14" y="23" width="56" height="49" rx="18" fill="#e2e8f0" />
+                <rect x="21" y="31" width="42" height="33" rx="11" fill="#0b1329" />
+                <circle cx="33" cy="45" r="4" fill="#38bdf8" />
+                <circle cx="51" cy="45" r="4" fill="#38bdf8" />
+                <path d="M 38 54 Q 42 58 46 54" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" />
+              </svg>
             </div>
-            <div class="ask-ai-header__sub">Enterprise Engineering & Solution Guide</div>
+            <div class="ask-ai-header__info">
+              <div class="ask-ai-header__title">
+                DeccanIDentity AI
+                <span class="ask-ai-header__badge">● Online</span>
+              </div>
+              <div class="ask-ai-header__sub">Enterprise Engineering & Solution Guide</div>
+            </div>
           </div>
+          <button type="button" class="ask-ai-header__close" id="globalRobotClose" aria-label="Close Assistant">✕</button>
         </div>
-        <button type="button" class="ask-ai-header__close" id="globalRobotClose" aria-label="Close Assistant">✕</button>
       </div>
 
       <div class="ask-ai-body" id="robotChatBody">
@@ -235,26 +325,26 @@ function initGlobalRobotAssistant() {
             </svg>
           </div>
           <div class="ask-ai-msg__bubble">
-            <p>Hello! 👋 I'm your <strong>DeccanIDentity AI Assistant</strong>. Ask me anything about our Zero-Trust IAM solutions, live website templates, mobile apps, or enterprise engineering services!</p>
+            <p>Hello! 👋 I'm your <strong>DeccanIDentity AI Assistant</strong>. Ask me anything about our Zero-Trust IAM solutions, live websites, mobile apps, or enterprise engineering services!</p>
             <div class="ask-ai-msg__links">
-              <a href="https://demo.deccanidentity.in/" target="_blank" class="ask-ai-msg__link-btn"><span>🚀 Demo Sites (Web)</span> <span>↗</span></a>
-              <a href="https://apps.deccanidentity.in/" target="_blank" class="ask-ai-msg__link-btn"><span>📱 Demo Apps (Mobile)</span> <span>↗</span></a>
-              <a href="solutions.htm" class="ask-ai-msg__link-btn"><span>🛡️ IAM Solutions</span> <span>→</span></a>
+              <a href="https://demo.deccanidentity.in/" target="_blank" class="ask-ai-msg__link-btn"><span>🚀 Websites Showcase</span> <span>↗</span></a>
+              <a href="https://apps.deccanidentity.in/" target="_blank" class="ask-ai-msg__link-btn"><span>📱 Apps Showcase</span> <span>↗</span></a>
+              <a href="solutions.htm" class="ask-ai-msg__link-btn"><span>🛡️ Solutions Hub</span> <span>→</span></a>
             </div>
           </div>
         </div>
       </div>
 
       <div class="ask-ai-suggestions" id="robotSuggestions">
-        <button type="button" class="ask-ai-chip">Tell me about Demo Sites</button>
-        <button type="button" class="ask-ai-chip">What Demo Apps do you have?</button>
-        <button type="button" class="ask-ai-chip">Zero-Trust IAM & PingFederate</button>
-        <button type="button" class="ask-ai-chip">Pricing & Custom Quotes</button>
+        <button type="button" class="ask-ai-chip">Tell me about Websites</button>
+        <button type="button" class="ask-ai-chip">What Apps do you have?</button>
+        <button type="button" class="ask-ai-chip">Zero-Trust IAM & Okta</button>
+        <button type="button" class="ask-ai-chip">Pricing & Quotes</button>
         <button type="button" class="ask-ai-chip">Chat on WhatsApp</button>
       </div>
 
       <form class="ask-ai-footer" id="robotChatForm">
-        <input type="text" class="ask-ai-input" id="robotChatInput" placeholder="Ask about templates, apps, IAM, pricing..." aria-label="Your question for AI" />
+        <input type="text" class="ask-ai-input" id="robotChatInput" placeholder="Ask about websites, apps, IAM, pricing..." aria-label="Your question for AI" />
         <button type="submit" class="ask-ai-send-btn" id="robotSendBtn" aria-label="Send message">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <line x1="22" y1="2" x2="11" y2="13" />
@@ -371,6 +461,7 @@ function initGlobalRobotAssistant() {
       robotFab.classList.add('assistant-open');
       robotFab.setAttribute('aria-expanded', 'true');
       modalOverlay.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('ask-ai-open');
 
       // Adaptive alignment based on robot coordinates
       if (robotPosition && robotPosition.x < window.innerWidth / 2) {
@@ -381,13 +472,14 @@ function initGlobalRobotAssistant() {
 
       setTimeout(() => {
         const input = document.getElementById('robotChatInput');
-        if (input) input.focus();
+        if (input && window.innerWidth > 640) input.focus();
       }, 150);
     } else {
       modalOverlay.classList.remove('open');
       robotFab.classList.remove('assistant-open');
       robotFab.setAttribute('aria-expanded', 'false');
       modalOverlay.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('ask-ai-open');
     }
   }
 
@@ -402,6 +494,21 @@ function initGlobalRobotAssistant() {
       toggleAssistantModal(false);
     }
   });
+
+  // Mobile Swipe Down on Header to Close Bottom Sheet
+  const modalHeader = modalOverlay.querySelector('.ask-ai-header');
+  if (modalHeader) {
+    let touchStartY = 0;
+    modalHeader.addEventListener('touchstart', (e) => {
+      touchStartY = e.touches[0].clientY;
+    }, { passive: true });
+    modalHeader.addEventListener('touchmove', (e) => {
+      const touchCurrentY = e.touches[0].clientY;
+      if (touchCurrentY - touchStartY > 50) {
+        toggleAssistantModal(false);
+      }
+    }, { passive: true });
+  }
 
   // Escape key closes modal
   window.addEventListener('keydown', (e) => {
@@ -472,7 +579,7 @@ function initGlobalRobotAssistant() {
       return {
         text: "We offer 14+ turnkey live website templates across Real Estate (PlotMark, VillaMark, FlatMark), Healthcare (CareMark), SaaS & Tech (TechMark), Education (EduMark), and E-Commerce (ShopMark) with interactive masterplans and WhatsApp lead routing.",
         links: [
-          { label: 'Explore Demo Sites', href: 'https://demo.deccanidentity.in/', target: '_blank', icon: '↗' },
+          { label: 'Explore Websites', href: 'https://demo.deccanidentity.in/', target: '_blank', icon: '↗' },
           { label: 'PlotMark Demo', href: 'https://demo.deccanidentity.in/demo/plotmark', target: '_blank', icon: '↗' },
           { label: 'Chat on WhatsApp', href: 'https://wa.me/message/IEJ3MUBFNFSEA1', target: '_blank', icon: '↗' },
         ]
@@ -483,7 +590,7 @@ function initGlobalRobotAssistant() {
       return {
         text: "Our Mobile & Cloud App showcase features high-performance cross-platform Flutter and React Native applications, enterprise workforce CRM tools, telehealth booking, and secure PWAs with biometric zero-trust authentication.",
         links: [
-          { label: 'Launch Demo Apps Showcase', href: 'https://apps.deccanidentity.in/', target: '_blank', icon: '↗' },
+          { label: 'Launch Apps Showcase', href: 'https://apps.deccanidentity.in/', target: '_blank', icon: '↗' },
           { label: 'Explore Mobile Engineering', href: 'solutions.htm', icon: '→' },
         ]
       };
@@ -522,8 +629,8 @@ function initGlobalRobotAssistant() {
     return {
       text: "Thanks for asking! We architect Zero-Trust IAM security, bespoke web and mobile applications, and turnkey website templates. How can our engineering team assist your project today?",
       links: [
-        { label: 'Explore Demo Sites', href: 'https://demo.deccanidentity.in/', target: '_blank', icon: '↗' },
-        { label: 'Explore Demo Apps', href: 'https://apps.deccanidentity.in/', target: '_blank', icon: '↗' },
+        { label: 'Explore Websites', href: 'https://demo.deccanidentity.in/', target: '_blank', icon: '↗' },
+        { label: 'Explore Apps', href: 'https://apps.deccanidentity.in/', target: '_blank', icon: '↗' },
         { label: 'Message on WhatsApp', href: 'https://wa.me/message/IEJ3MUBFNFSEA1', target: '_blank', icon: '↗' },
       ]
     };

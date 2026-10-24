@@ -18,44 +18,273 @@
 <body style="min-height: 100vh; display: flex; flex-direction: column;">
 
   <!-- Header -->
-  <header class="site-header">
+  <!-- Reading Scroll Progress Indicator -->
+  <div class="site-scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <!-- Sticky Enterprise Header -->
+  <header class="site-header" id="siteHeader">
     <div class="container-modern nav-container">
-      <a href="index.html" class="brand-wrapper">
+      <a href="index.html" class="brand-wrapper" title="DeccanIDentity — Home">
         <img src="images/Logo.png" alt="DeccanIDentity Logo" class="brand-logo-img">
         <img src="images/logoname.png" alt="DeccanIDentity" class="brand-name-img">
       </a>
-      
-      <button class="mobile-nav-toggle" id="mobileNavToggle" aria-label="Toggle navigation">
-        <i class="fa-solid fa-bars"></i>
+
+      <!-- Mobile Hamburger Toggle -->
+      <button class="mobile-nav-toggle" id="mobileNavToggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="navLinks">
+        <span class="hamburger-box">
+          <span class="hamburger-inner"></span>
+        </span>
       </button>
 
-      <ul class="nav-links" id="navLinks">
-        <li class="nav-link-item"><a href="index.html">Home</a></li>
-        <li class="nav-link-item"><a href="ourstory.htm">OurStory</a></li>
-        <li class="nav-link-item"><a href="solutions.htm">Solutions</a></li>
-        <li class="nav-link-item"><a href="technology.htm">IdentityTech</a></li>
-        <li class="nav-link-item"><a href="skills.htm">SkillsHub</a></li>
-        <li class="nav-link-item"><a href="contact.htm">ContactUs</a></li>
-        <li class="mobile-drawer-actions">
-          <a href="https://demo.deccanidentity.in/" target="_blank" class="btn-modern btn-modern-cyan btn-modern-sm" title="Website Templates & Live Showcases">
-            <i class="fa-solid fa-laptop-code"></i> Demo Sites
-          </a>
-          <a href="https://apps.deccanidentity.in/" target="_blank" class="btn-modern btn-modern-purple btn-modern-sm" title="Mobile & Cloud App Showcases">
-            <i class="fa-solid fa-mobile-screen-button"></i> Demo Apps
-          </a>
-        </li>
-      </ul>
+      <!-- Navigation Links & Mega Dropdowns -->
+      <nav class="nav-navigation" aria-label="Primary Navigation">
+        <ul class="nav-links" id="navLinks">
+          <li class="nav-link-item"><a href="index.html">Home</a></li>
+          <li class="nav-link-item"><a href="ourstory.htm">Our Story</a></li>
+          
+          <!-- Solutions Mega Menu -->
+          <li class="nav-link-item has-dropdown">
+            <a href="solutions.htm" class="dropdown-trigger" aria-haspopup="true" aria-expanded="false">
+              <span>Solutions</span>
+              <i class="fa-solid fa-chevron-down nav-chevron" aria-hidden="true"></i>
+            </a>
+            <div class="mega-dropdown solutions-dropdown" role="region" aria-label="Solutions Overview">
+              <div class="mega-dropdown-grid">
+                <div class="mega-col-main">
+                  <span class="mega-group-label">Enterprise Capabilities</span>
+                  <div class="mega-items-grid">
+                    <a href="solutions.htm" class="mega-item">
+                      <div class="mega-icon-box bg-blue-subtle">
+                        <i class="fa-solid fa-shield-halved"></i>
+                      </div>
+                      <div class="mega-item-text">
+                        <span class="mega-item-title">Zero-Trust IAM Engineering</span>
+                        <span class="mega-item-desc">PingFederate, Okta, ForgeRock & CyberArk</span>
+                      </div>
+                    </a>
 
+                    <a href="solutions.htm" class="mega-item">
+                      <div class="mega-icon-box bg-cyan-subtle">
+                        <i class="fa-solid fa-cloud"></i>
+                      </div>
+                      <div class="mega-item-text">
+                        <span class="mega-item-title">Cloud & AI Web Platforms</span>
+                        <span class="mega-item-desc">High-concurrency microservices & Next.js SaaS</span>
+                      </div>
+                    </a>
+
+                    <a href="solutions.htm" class="mega-item">
+                      <div class="mega-icon-box bg-purple-subtle">
+                        <i class="fa-solid fa-mobile-screen"></i>
+                      </div>
+                      <div class="mega-item-text">
+                        <span class="mega-item-title">Enterprise Mobile Systems</span>
+                        <span class="mega-item-desc">Native iOS, Android & React Native apps</span>
+                      </div>
+                    </a>
+
+                    <a href="solutions.htm" class="mega-item">
+                      <div class="mega-icon-box bg-emerald-subtle">
+                        <i class="fa-solid fa-robot"></i>
+                      </div>
+                      <div class="mega-item-text">
+                        <span class="mega-item-title">Enterprise AI & Automation</span>
+                        <span class="mega-item-desc">Intelligent agents, LLM pipelines & 24/7 SLA</span>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+
+                <div class="mega-col-featured">
+                  <div class="mega-featured-card">
+                    <div class="featured-badge">
+                      <span class="live-dot-ping"></span> Live Showcases
+                    </div>
+                    <h4 class="featured-title">Interactive Enterprise Demos</h4>
+                    <p class="featured-desc">Explore ready-to-deploy enterprise web portals and native mobile experiences.</p>
+                    <div class="featured-links">
+                      <a href="https://demo.deccanidentity.in/" target="_blank" class="featured-link-pill cyan">
+                        <span><i class="fa-solid fa-laptop-code"></i> Websites (100+)</span>
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                      </a>
+                      <a href="https://apps.deccanidentity.in/" target="_blank" class="featured-link-pill purple">
+                        <span><i class="fa-solid fa-mobile-screen-button"></i> Mobile Apps</span>
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+
+          <!-- Identity Tech Mega Menu -->
+          <li class="nav-link-item has-dropdown">
+            <a href="technology.htm" class="dropdown-trigger" aria-haspopup="true" aria-expanded="false">
+              <span>Identity Tech</span>
+              <i class="fa-solid fa-chevron-down nav-chevron" aria-hidden="true"></i>
+            </a>
+            <div class="mega-dropdown tech-dropdown" role="region" aria-label="Identity Technology Pillars">
+              <div class="mega-dropdown-grid">
+                <div class="mega-col-main">
+                  <span class="mega-group-label">Architecture Pillars</span>
+                  <div class="mega-items-grid">
+                    <a href="technology.htm#verification" class="mega-item">
+                      <div class="mega-icon-box bg-blue-subtle">
+                        <i class="fa-solid fa-id-card-clip"></i>
+                      </div>
+                      <div class="mega-item-text">
+                        <span class="mega-item-title">Continuous Verification</span>
+                        <span class="mega-item-desc">Zero-Trust adaptive posture & context checks</span>
+                      </div>
+                    </a>
+
+                    <a href="technology.htm#access" class="mega-item">
+                      <div class="mega-icon-box bg-cyan-subtle">
+                        <i class="fa-solid fa-key"></i>
+                      </div>
+                      <div class="mega-item-text">
+                        <span class="mega-item-title">Privileged Access (PAM)</span>
+                        <span class="mega-item-desc">CyberArk, HashiCorp Vault & session audits</span>
+                      </div>
+                    </a>
+
+                    <a href="technology.htm#authentication" class="mega-item">
+                      <div class="mega-icon-box bg-purple-subtle">
+                        <i class="fa-solid fa-fingerprint"></i>
+                      </div>
+                      <div class="mega-item-text">
+                        <span class="mega-item-title">SSO, SAML & OIDC</span>
+                        <span class="mega-item-desc">Federated SSO, Passkeys & adaptive MFA</span>
+                      </div>
+                    </a>
+
+                    <a href="technology.htm#management" class="mega-item">
+                      <div class="mega-icon-box bg-emerald-subtle">
+                        <i class="fa-solid fa-users-gear"></i>
+                      </div>
+                      <div class="mega-item-text">
+                        <span class="mega-item-title">Automated SCIM & Governance</span>
+                        <span class="mega-item-desc">Identity lifecycle, compliance & audit trails</span>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+
+                <div class="mega-col-featured">
+                  <div class="mega-tech-card">
+                    <div class="tech-card-pill">
+                      <i class="fa-solid fa-certificate"></i> Certified Lead
+                    </div>
+                    <h4 class="featured-title">PingFederate & Okta Specialists</h4>
+                    <p class="featured-desc">Certified engineering leads implementing fault-tolerant federated SSO architectures with 99.99% uptime.</p>
+                    <a href="technology.htm" class="tech-cta-link">
+                      Explore Architecture <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+
+          <!-- Skills Hub Mega Menu -->
+          <li class="nav-link-item has-dropdown">
+            <a href="skills.htm" class="dropdown-trigger" aria-haspopup="true" aria-expanded="false">
+              <span>Skills Hub</span>
+              <i class="fa-solid fa-chevron-down nav-chevron" aria-hidden="true"></i>
+            </a>
+            <div class="mega-dropdown skills-dropdown" role="region" aria-label="Skills & Programs">
+              <div class="mega-dropdown-grid">
+                <div class="mega-col-main">
+                  <span class="mega-group-label">Programs & Bootcamps</span>
+                  <div class="mega-items-grid">
+                    <a href="skills.htm" class="mega-item">
+                      <div class="mega-icon-box bg-blue-subtle">
+                        <i class="fa-solid fa-user-graduate"></i>
+                      </div>
+                      <div class="mega-item-text">
+                        <span class="mega-item-title">Enterprise Live Internship</span>
+                        <span class="mega-item-desc">Hands-on live software delivery & mentoring</span>
+                      </div>
+                    </a>
+
+                    <a href="skills.htm" class="mega-item">
+                      <div class="mega-icon-box bg-cyan-subtle">
+                        <i class="fa-solid fa-user-shield"></i>
+                      </div>
+                      <div class="mega-item-text">
+                        <span class="mega-item-title">Cybersecurity & IAM Track</span>
+                        <span class="mega-item-desc">PingFederate, Okta, CyberArk & SailPoint labs</span>
+                      </div>
+                    </a>
+
+                    <a href="skills.htm" class="mega-item">
+                      <div class="mega-icon-box bg-purple-subtle">
+                        <i class="fa-solid fa-code"></i>
+                      </div>
+                      <div class="mega-item-text">
+                        <span class="mega-item-title">Fullstack Cloud Engineering</span>
+                        <span class="mega-item-desc">React, Next.js, Node, Java & AWS Microservices</span>
+                      </div>
+                    </a>
+
+                    <a href="skills.htm" class="mega-item">
+                      <div class="mega-icon-box bg-emerald-subtle">
+                        <i class="fa-solid fa-brain"></i>
+                      </div>
+                      <div class="mega-item-text">
+                        <span class="mega-item-title">Applied AI & Machine Learning</span>
+                        <span class="mega-item-desc">LLMs, Agentic AI, PyTorch & Data Pipelines</span>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+
+                <div class="mega-col-featured">
+                  <div class="mega-skills-card">
+                    <div class="featured-badge skills-badge">
+                      <i class="fa-solid fa-bolt"></i> Enrollment Open
+                    </div>
+                    <h4 class="featured-title">Accelerate Your Engineering Career</h4>
+                    <p class="featured-desc">Cohort-based learning with real code reviews, practical repos & certification guidance.</p>
+                    <a href="skills.htm#popup" class="btn-modern btn-modern-primary btn-modern-sm w-100" style="justify-content: center;">
+                      <i class="fa-solid fa-pen-to-square"></i> Apply Now
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+
+          <!-- Contact Us -->
+          <li class="nav-link-item"><a href="contact.htm">Contact Us</a></li>
+
+          <!-- Mobile Drawer Footer & Actions -->
+          <li class="mobile-drawer-actions">
+            <a href="https://demo.deccanidentity.in/" target="_blank" class="btn-modern btn-modern-cyan btn-modern-sm" title="Website Templates & Live Showcases">
+              <i class="fa-solid fa-laptop-code"></i> Websites
+            </a>
+            <a href="https://apps.deccanidentity.in/" target="_blank" class="btn-modern btn-modern-purple btn-modern-sm" title="Mobile & Cloud App Showcases">
+              <i class="fa-solid fa-mobile-screen-button"></i> Apps
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Desktop Nav Actions -->
       <div class="nav-actions">
         <a href="https://demo.deccanidentity.in/" target="_blank" class="btn-modern btn-modern-cyan btn-modern-sm" title="Website Templates & Live Showcases">
-          <i class="fa-solid fa-laptop-code"></i> Demo Sites
+          <i class="fa-solid fa-laptop-code"></i> Websites
         </a>
         <a href="https://apps.deccanidentity.in/" target="_blank" class="btn-modern btn-modern-purple btn-modern-sm" title="Mobile & Cloud App Showcases">
-          <i class="fa-solid fa-mobile-screen-button"></i> Demo Apps
+          <i class="fa-solid fa-mobile-screen-button"></i> Apps
         </a>
       </div>
     </div>
   </header>
+
+  <!-- Mobile Drawer Backdrop -->
+  <div class="nav-backdrop" id="navBackdrop" aria-hidden="true"></div>
 
   <!-- 404 Hero Container -->
   <main style="flex-grow: 1; display: flex; align-items: center; justify-content: center; padding: 140px 1.5rem 80px; text-align: center;">
