@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -14,7 +14,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
   
-  <link rel="stylesheet" href="css/modern.css">
+  <link rel="stylesheet" href="css/modern.css?v=2.9">
   <style>
     .service-timeline-card {
       background: #ffffff;
@@ -59,37 +59,62 @@
       text-wrap: pretty;
     }
     .why-partner-box {
-      background: linear-gradient(135deg, #0b1120 0%, #1e293b 100%);
-      color: #ffffff;
+      background: #C9E6FA;
+      color: #0f172a;
       border-radius: var(--radius-xl);
-      padding: 3rem;
-      margin-top: 3rem;
+      padding: 3.5rem 3rem;
+      margin-top: 3.5rem;
+      border: 1px solid #b2d7f5;
+      box-shadow: 0 10px 30px -5px rgba(15, 23, 42, 0.05), 0 2px 6px rgba(15, 23, 42, 0.03);
     }
     .why-partner-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      grid-template-columns: repeat(2, 1fr);
       gap: 1.5rem;
-      margin-top: 2rem;
+      margin-top: 2.25rem;
     }
     .why-item {
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: var(--radius-md);
-      padding: 1.5rem;
+      background: #ffffff;
+      border: 1px solid #b2d7f5;
+      border-radius: var(--radius-lg);
+      padding: 1.75rem 2rem;
+      transition: all 0.25s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.03);
+    }
+    .why-item:hover {
+      background: #ffffff;
+      border-color: #93c5fd;
+      transform: translateY(-3px);
+      box-shadow: 0 12px 24px -4px rgba(29, 78, 216, 0.09), 0 2px 6px rgba(15, 23, 42, 0.04);
     }
     .why-item h4 {
-      color: #ffffff;
-      margin-bottom: 0.5rem;
-      font-size: 1.1rem;
+      color: #0f172a;
+      margin-bottom: 0.6rem;
+      font-size: 1.15rem;
+      font-weight: 700;
       line-height: 1.3;
       letter-spacing: -0.015em;
       display: flex;
       align-items: center;
-      gap: 0.6rem;
+      gap: 0.75rem;
+    }
+    .why-icon-box {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
     }
     .why-item p {
-      color: #94a3b8;
-      font-size: 0.92rem;
+      color: #475569;
+      font-size: 0.95rem;
       line-height: 1.65;
       letter-spacing: -0.008em;
       text-wrap: pretty;
@@ -112,6 +137,10 @@
       .service-timeline-card img {
         height: 190px;
         order: -1;
+      }
+      .why-partner-grid {
+        grid-template-columns: 1fr;
+        gap: 1.15rem;
       }
     }
     @media (max-width: 640px) {
@@ -140,7 +169,7 @@
   <!-- Sticky Enterprise Header -->
   <header class="site-header" id="siteHeader">
     <div class="container-modern nav-container">
-      <a href="index.html" class="brand-wrapper" title="DeccanIDentity — Home">
+      <a href="index.html" class="brand-wrapper" title="DeccanIDentity â€” Home">
         <img src="images/Logo.png" alt="DeccanIDentity Logo" class="brand-logo-img">
         <img src="images/logoname.png" alt="DeccanIDentity" class="brand-name-img">
       </a>
@@ -413,7 +442,7 @@
       <span class="section-pill">Enterprise Capabilities & Live Showcases</span>
       <h1 class="hero-title" style="margin-bottom: 0.85rem;">Technology Solutions & Production Platforms</h1>
       <p style="color: var(--text-muted); font-size: 1.15rem; max-width: 760px; margin: 0 auto 1.75rem;">
-        Delivering resilient cybersecurity, Zero-Trust IAM, full-stack web architectures, and mission-critical mobile platforms engineered for enterprise scale and 24×7 compliance.
+        Delivering resilient cybersecurity, Zero-Trust IAM, full-stack web architectures, and mission-critical mobile platforms engineered for enterprise scale and 24Ã—7 compliance.
       </p>
       <div class="page-hero-cta-group">
         <a href="#ecosystemShowcases" class="btn-modern btn-modern-primary btn-hero-explore">
@@ -512,9 +541,9 @@
   <section class="section-padding ecosystem-section" id="ecosystemShowcases">
     <div class="container-modern">
       <div class="section-header" style="margin-bottom: 2.75rem;">
-        <span class="section-pill" style="background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.18); color: #ffffff;">Live Production Ecosystems</span>
-        <h2 class="section-title" style="color: #ffffff;">Production Platforms: Websites & Apps</h2>
-        <p class="section-subtitle" style="color: #94a3b8;">
+        <span class="section-pill section-pill-blue">Live Production Ecosystems</span>
+        <h2 class="section-title" style="color: #0f172a;">Production Platforms: Websites & Apps</h2>
+        <p class="section-subtitle" style="color: #475569;">
           Experience live turnkey solutions built by DeccanIDentity. Explore full-featured web templates across 7 industry verticals, native-grade cross-platform mobile apps, and cloud customer engagement engines.
         </p>
       </div>
@@ -523,8 +552,8 @@
       <div class="ecosystem-dual-grid">
         <!-- Showcase 1: Website Templates & Web Showcases (demo.deccanidentity.in) -->
         <div class="ecosystem-card card-websites">
-          <div class="hero-badge-pill" style="background: rgba(2, 132, 199, 0.2); border-color: rgba(6, 182, 212, 0.4); color: #38bdf8;">
-            <span class="badge-dot" style="background:#38bdf8;"></span>
+          <div class="hero-badge-pill" style="background: #eff6ff; border-color: #bfdbfe; color: #1d4ed8;">
+            <span class="badge-dot" style="background:#1d4ed8;"></span>
             <span>Turnkey Website Templates</span>
           </div>
 
@@ -554,10 +583,10 @@
           </ul>
 
           <div class="ecosystem-card-actions">
-            <a href="https://demo.deccanidentity.in/" target="_blank" class="btn-modern btn-modern-cyan">
+            <a href="https://demo.deccanidentity.in/" target="_blank" class="btn-modern btn-modern-primary">
               <i class="fa-solid fa-laptop-code"></i> Explore Websites <span class="btn-subtext">(demo.deccanidentity.in)</span> <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:0.75rem;"></i>
             </a>
-            <a href="contact.htm" class="btn-modern btn-modern-outline" style="color: #ffffff !important; border-color: rgba(255,255,255,0.2); background: rgba(255,255,255,0.06);">
+            <a href="contact.htm" class="btn-modern btn-neutral-outline">
               Request Custom Website
             </a>
           </div>
@@ -565,8 +594,8 @@
 
         <!-- Showcase 2: App Showcases & Apps (apps.deccanidentity.in) -->
         <div class="ecosystem-card card-apps">
-          <div class="hero-badge-pill" style="background: rgba(99, 102, 241, 0.2); border-color: rgba(139, 92, 246, 0.4); color: #c084fc;">
-            <span class="badge-dot" style="background:#a855f7;"></span>
+          <div class="hero-badge-pill" style="background: #eff6ff; border-color: #bfdbfe; color: #1d4ed8;">
+            <span class="badge-dot" style="background:#1d4ed8;"></span>
             <span>Mobile & Cloud Applications</span>
           </div>
 
@@ -596,10 +625,10 @@
           </ul>
 
           <div class="ecosystem-card-actions">
-            <a href="https://apps.deccanidentity.in/" target="_blank" class="btn-modern btn-modern-purple">
+            <a href="https://apps.deccanidentity.in/" target="_blank" class="btn-modern btn-modern-primary">
               <i class="fa-solid fa-mobile-screen-button"></i> Explore Apps <span class="btn-subtext">(apps.deccanidentity.in)</span> <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:0.75rem;"></i>
             </a>
-            <a href="contact.htm" class="btn-modern btn-modern-outline" style="color: #ffffff !important; border-color: rgba(255,255,255,0.2); background: rgba(255,255,255,0.06);">
+            <a href="contact.htm" class="btn-modern btn-neutral-outline">
               Request Custom App
             </a>
           </div>
@@ -611,13 +640,13 @@
         <!-- Card: WhatsApp CRM -->
         <div class="side-feature-card">
           <h4>
-            <i class="fa-brands fa-whatsapp" style="color: #25d366;"></i>
+            <i class="fa-brands fa-whatsapp" style="color: #16a34a;"></i>
             WhatsApp Business CRM Platform
           </h4>
           <p>
             Engage clients, automate support, and manage sales pipelines seamlessly with our intelligent WhatsApp CRM platform at <strong>wacrm.deccanidentity.in</strong>.
           </p>
-          <a href="https://wacrm.deccanidentity.in/" target="_blank" class="btn-modern btn-modern-outline btn-modern-sm" style="color: #ffffff !important; border-color: rgba(255,255,255,0.25); margin-top: auto;">
+          <a href="https://wacrm.deccanidentity.in/" target="_blank" class="btn-modern btn-neutral-outline btn-modern-sm" style="margin-top: auto;">
             <i class="fa-solid fa-lock"></i> Access WA CRM Portal <span class="btn-subtext">(wacrm.deccanidentity.in)</span>
           </a>
         </div>
@@ -625,13 +654,13 @@
         <!-- Card: Enterprise IAM Architecture -->
         <div class="side-feature-card">
           <h4>
-            <i class="fa-solid fa-shield-halved" style="color: #38bdf8;"></i>
+            <i class="fa-solid fa-shield-halved" style="color: #0284c7;"></i>
             Zero-Trust Enterprise IAM Architecture
           </h4>
           <p>
             Federated Single Sign-On (SSO), adaptive Multi-Factor Authentication (MFA), and automated identity lifecycle governance powered by PingFederate, Okta & ForgeRock.
           </p>
-          <a href="technology.htm" class="btn-modern btn-modern-outline btn-modern-sm" style="color: #ffffff !important; border-color: rgba(255,255,255,0.25); margin-top: auto;">
+          <a href="technology.htm" class="btn-modern btn-neutral-outline btn-modern-sm" style="margin-top: auto;">
             <i class="fa-solid fa-network-wired"></i> View IAM Tech Stack & Architecture
           </a>
         </div>
@@ -646,7 +675,7 @@
         <span class="section-pill">Lifecycle Delivery</span>
         <h2 class="section-title">End-to-End Enterprise Services</h2>
         <p class="section-subtitle">
-          Comprehensive project execution from talent acquisition and prototyping to 24×7 ongoing production support.
+          Comprehensive project execution from talent acquisition and prototyping to 24Ã—7 ongoing production support.
         </p>
       </div>
 
@@ -695,7 +724,7 @@
           <img src="images/timeline/support_24x7_365.jpg" alt="24x7 365 Days Support">
         </div>
         <div>
-          <h3 style="margin-bottom: 0.6rem; color: #0f172a;"><i class="fa-solid fa-headset" style="color: var(--accent-emerald);"></i> 24×7×365 Mission-Critical Support</h3>
+          <h3 style="margin-bottom: 0.6rem; color: #0f172a;"><i class="fa-solid fa-headset" style="color: var(--accent-emerald);"></i> 24Ã—7Ã—365 Mission-Critical Support</h3>
           <p style="color: var(--text-muted); font-size: 1rem; line-height: 1.6;">
             Round-the-clock infrastructure monitoring, rapid incident response, patch management, and ongoing software maintenance to guarantee zero downtime and complete business continuity.
           </p>
@@ -704,29 +733,29 @@
 
       <!-- Why Partner With Us -->
       <div class="why-partner-box">
-        <div style="text-align: center; max-width: 600px; margin: 0 auto;">
-          <span class="hero-badge" style="background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); color: #60a5fa;">
+        <div style="text-align: center; max-width: 620px; margin: 0 auto 2rem;">
+          <span class="section-pill section-pill-blue" style="margin-bottom: 1.25rem;">
             The DeccanIDentity Advantage
           </span>
-          <h2 style="color: #ffffff; margin-bottom: 0.75rem;">Why Partner With Us?</h2>
-          <p style="color: #94a3b8;">Building long-term strategic relationships grounded in trust, agility, and technical excellence.</p>
+          <h2 style="color: #0f172a; margin-bottom: 0.75rem; font-size: clamp(1.6rem, 3.2vw, 2.2rem); font-weight: 800; letter-spacing: -0.025em;">Why Partner With Us?</h2>
+          <p style="color: #475569; font-size: 0.98rem; line-height: 1.65;">Building long-term strategic relationships grounded in trust, agility, and technical excellence.</p>
         </div>
 
         <div class="why-partner-grid">
           <div class="why-item">
-            <h4><i class="fa-solid fa-award" style="color: #fbbf24;"></i> Proven Expertise</h4>
+            <h4><span class="why-icon-box" style="background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe;"><i class="fa-solid fa-award"></i></span> Proven Expertise</h4>
             <p>Battle-tested implementations across enterprise Cloud, IAM protocols, and high-scale web platforms.</p>
           </div>
           <div class="why-item">
-            <h4><i class="fa-solid fa-shield-halved" style="color: #38bdf8;"></i> Future-Ready Security</h4>
+            <h4><span class="why-icon-box" style="background: #f0f9ff; color: #0284c7; border: 1px solid #bae6fd;"><i class="fa-solid fa-shield-halved"></i></span> Future-Ready Security</h4>
             <p>Architected from day one for Zero-Trust compliance, data privacy, and continuous threat mitigation.</p>
           </div>
           <div class="why-item">
-            <h4><i class="fa-solid fa-chart-line" style="color: #34d399;"></i> Measurable Business ROI</h4>
+            <h4><span class="why-icon-box" style="background: #f0fdf4; color: #16a34a; border: 1px solid #bbf7d0;"><i class="fa-solid fa-chart-line"></i></span> Measurable Business ROI</h4>
             <p>Focused on quantifiable outcomes, optimized development cycles, and reduced infrastructure overhead.</p>
           </div>
           <div class="why-item">
-            <h4><i class="fa-solid fa-handshake" style="color: #c084fc;"></i> Dedicated Partnership</h4>
+            <h4><span class="why-icon-box" style="background: #eff6ff; color: #1d4ed8; border: 1px solid #bfdbfe;"><i class="fa-solid fa-handshake"></i></span> Dedicated Partnership</h4>
             <p>Collaborative engagement model offering transparency, continuous communication, and 24x7 support.</p>
           </div>
         </div>
@@ -745,11 +774,11 @@
     <div class="container-modern">
       <div class="footer-top-grid">
         <div class="footer-col">
-          <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.25rem;">
-            <img src="images/Logo.png" alt="DeccanIDentity Logo" style="height: 38px;">
-            <img src="images/logoname.png" alt="DeccanIDentity" style="height: 34px;">
+          <div class="footer-brand-badge">
+            <img src="images/Logo.png" alt="DeccanIDentity Logo" class="footer-brand-logo-img">
+            <img src="images/logoname.png" alt="DeccanIDentity" class="footer-brand-name-img">
           </div>
-          <p style="color: #94a3b8; font-size: 0.92rem; line-height: 1.6; margin-bottom: 1.5rem;">
+          <p style="color: rgba(255, 255, 255, 0.95); font-size: 0.92rem; line-height: 1.6; margin-bottom: 1.5rem;">
             DeccanIDentity delivers Zero-Trust IAM, full-stack AI web engineering, and enterprise mobility solutions with 24x7 expert support.
           </p>
           <div class="social-links">
@@ -803,29 +832,32 @@
             <li>
               <i class="fa-solid fa-phone"></i>
               <div>
-                <a href="tel:+919000035869" style="color: #cbd5e1;">+91 90000 35869</a> / 
-                <a href="tel:+919494765679" style="color: #cbd5e1;">+91 94947 65679</a>
+                <a href="tel:+919000035869" style="color: #ffffff;">+91 90000 35869</a> / 
+                <a href="tel:+919494765679" style="color: #ffffff;">+91 94947 65679</a>
               </div>
             </li>
             <li>
               <i class="fa-solid fa-envelope"></i>
               <div>
-                <a href="mailto:hr@deccanidentity.com" style="color: #cbd5e1;">hr@deccanidentity.com</a>
+                <a href="mailto:hr@deccanidentity.com" style="color: #ffffff;">hr@deccanidentity.com</a>
               </div>
             </li>
           </ul>
         </div>
       </div>
+    </div>
 
-      <div class="footer-bottom">
+    <!-- Bottom Bar (Full-Width Dark Teal) -->
+    <div class="footer-bottom">
+      <div class="container-modern">
         <div class="footer-bottom-flex">
           <div>
             &copy; <span id="currentYear" class="current-year">2026</span> <strong>DeccanIDentity Software Pvt. Ltd.</strong> All Rights Reserved.
           </div>
           <div style="display: flex; gap: 1.5rem;">
-            <a href="privacy.htm" style="color: #64748b;">Privacy Policy</a>
-            <a href="termsandcond.htm" style="color: #64748b;">Terms of Service</a>
-            <a href="sitemap.xml" style="color: #64748b;">Sitemap</a>
+            <a href="privacy.htm" style="color: rgba(255, 255, 255, 0.88);">Privacy Policy</a>
+            <a href="termsandcond.htm" style="color: rgba(255, 255, 255, 0.88);">Terms of Service</a>
+            <a href="sitemap.xml" style="color: rgba(255, 255, 255, 0.88);">Sitemap</a>
           </div>
         </div>
       </div>
@@ -839,9 +871,10 @@
     </button>
     <a href="https://wa.me/918186035869" target="_blank" class="floating-whatsapp" title="Chat on WhatsApp" aria-label="Chat on WhatsApp">
       <i class="fa-brands fa-whatsapp"></i>
+      <span class="floating-whatsapp__tooltip"><span class="floating-whatsapp__tooltip-dot" aria-hidden="true"></span> WhatsApp</span>
     </a>
   </div>
 
-  <script src="js/modern.js"></script>
+  <script src="js/modern.js?v=2.9"></script>
 </body>
 </html>

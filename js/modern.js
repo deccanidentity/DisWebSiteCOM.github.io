@@ -59,39 +59,101 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // Mobile Accordion toggle for dropdown chevrons
+    // Mobile Accordion toggle for dropdown triggers & chevrons
     navLinks.querySelectorAll('.has-dropdown').forEach((item) => {
       const trigger = item.querySelector('.dropdown-trigger');
       const chevron = item.querySelector('.nav-chevron');
 
-      if (chevron) {
-        chevron.addEventListener('click', (e) => {
-          if (window.innerWidth <= 1040) {
-            e.preventDefault();
-            e.stopPropagation();
-            const wasOpen = item.classList.contains('mobile-open');
-            // Close other sibling dropdowns for clean accordion effect
-            navLinks.querySelectorAll('.has-dropdown.mobile-open').forEach((sibling) => {
-              if (sibling !== item) {
-                sibling.classList.remove('mobile-open');
-                const sibTrigger = sibling.querySelector('.dropdown-trigger');
-                if (sibTrigger) sibTrigger.setAttribute('aria-expanded', 'false');
-              }
-            });
-            item.classList.toggle('mobile-open');
-            if (trigger) {
-              trigger.setAttribute('aria-expanded', !wasOpen ? 'true' : 'false');
+      const handleAccordionToggle = (e) => {
+        if (window.innerWidth <= 1040) {
+          e.preventDefault();
+          e.stopPropagation();
+          const wasOpen = item.classList.contains('mobile-open');
+          // Close other sibling dropdowns for clean accordion effect
+          navLinks.querySelectorAll('.has-dropdown.mobile-open').forEach((sibling) => {
+            if (sibling !== item) {
+              sibling.classList.remove('mobile-open');
+              const sibTrigger = sibling.querySelector('.dropdown-trigger');
+              if (sibTrigger) sibTrigger.setAttribute('aria-expanded', 'false');
             }
+          });
+          item.classList.toggle('mobile-open');
+          if (trigger) {
+            trigger.setAttribute('aria-expanded', !wasOpen ? 'true' : 'false');
           }
-        });
+        }
+      };
+
+      if (trigger) {
+        trigger.addEventListener('click', handleAccordionToggle);
+      }
+      if (chevron) {
+        chevron.addEventListener('click', handleAccordionToggle);
       }
     });
 
-    // Auto-close drawer when clicking on any navigation destination link
+    // Auto-close mobile drawer when clicking destination links (only on mobile)
     navLinks.querySelectorAll('a:not(.dropdown-trigger), .mega-item, .featured-link-pill, .tech-cta-link, .mobile-drawer-btns a, .mobile-contact-pill').forEach((link) => {
       link.addEventListener('click', () => {
-        closeDrawer();
+        if (window.innerWidth <= 1040) {
+          closeDrawer();
+        }
       });
+    });
+
+    // Prevent reload flicker when clicking the link of the currently active page
+    navLinks.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', (e) => {
+        const href = link.getAttribute('href');
+        if (!href || href.startsWith('#') || href.startsWith('http') || href.startsWith('mailto:') || href.startsWith('tel:')) {
+          return;
+        }
+
+        const rawCurrent = window.location.pathname.split('/').pop() || 'index.html';
+        const currentPath = rawCurrent.toLowerCase();
+        const rawTarget = href.split('#')[0].split('?')[0];
+        const targetPath = (rawTarget || 'index.html').toLowerCase();
+
+        // Check if target is current page
+        const isCurrentPage = currentPath === targetPath ||
+          ((currentPath === '' || currentPath === 'index.html') && (targetPath === '' || targetPath === 'index.html'));
+
+        if (isCurrentPage) {
+          // If on mobile and it's a dropdown trigger, accordion handler handles it
+          if (window.innerWidth <= 1040 && link.classList.contains('dropdown-trigger')) {
+            return;
+          }
+          e.preventDefault();
+          window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+          });
+          if (window.innerWidth <= 1040) {
+            closeDrawer();
+          }
+        }
+      });
+    });
+
+    // Prefetch internal pages on link hover to eliminate network wait & white screen flash
+    const prefetchedLinks = new Set();
+    const prefetchUrl = (url) => {
+      if (!url || prefetchedLinks.has(url)) return;
+      if (url.startsWith('#') || url.startsWith('http') || url.startsWith('mailto:') || url.startsWith('tel:')) return;
+      prefetchedLinks.add(url);
+      const linkTag = document.createElement('link');
+      linkTag.rel = 'prefetch';
+      linkTag.href = url;
+      document.head.appendChild(linkTag);
+    };
+
+    navLinks.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('mouseenter', () => {
+        const href = link.getAttribute('href');
+        if (href) {
+          prefetchUrl(href);
+        }
+      }, { passive: true });
     });
 
     // Close mobile nav when clicking outside
@@ -171,6 +233,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // 6. Initialize Independent Draggable WhatsApp
   initDraggableWhatsApp();
+
+  // 7. Initialize Hero Slideshow Carousel
+  initHeroSlider();
 });
 
 /**
@@ -196,7 +261,7 @@ function initGlobalRobotAssistant() {
 
   robotFab.innerHTML = `
     <span class="ask-ai-fab__pulse" aria-hidden="true"></span>
-    <div class="ask-ai-robo-character" style="width: 56px; height: 56px;">
+    <div class="ask-ai-robo-character" style="width: 40px; height: 40px;">
       <svg class="ask-ai-robo-svg" viewBox="0 0 100 92" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <defs>
           <filter id="robo-glow-filter" x="-20%" y="-20%" width="140%" height="140%">
@@ -682,6 +747,14 @@ function initDraggableWhatsApp() {
   const waBtn = document.querySelector('.floating-whatsapp');
   if (!waBtn) return;
 
+  // Ensure WhatsApp hover tooltip is present
+  if (!waBtn.querySelector('.floating-whatsapp__tooltip')) {
+    const tooltip = document.createElement('span');
+    tooltip.className = 'floating-whatsapp__tooltip';
+    tooltip.innerHTML = '<span class="floating-whatsapp__tooltip-dot" aria-hidden="true"></span> WhatsApp';
+    waBtn.appendChild(tooltip);
+  }
+
   let isDragging = false;
   let hasMoved = false;
   let startX = 0, startY = 0;
@@ -699,6 +772,11 @@ function initDraggableWhatsApp() {
       waPosition.y = Math.min(Math.max(padding, waPosition.y), maxY);
       waBtn.style.left = `${waPosition.x}px`;
       waBtn.style.top = `${waPosition.y}px`;
+      if (waPosition.x > window.innerWidth / 2) {
+        waBtn.classList.add('tooltip-left');
+      } else {
+        waBtn.classList.remove('tooltip-left');
+      }
     }
   });
 
@@ -746,6 +824,12 @@ function initDraggableWhatsApp() {
       waBtn.style.top = `${targetY}px`;
       waBtn.style.right = 'auto';
       waBtn.style.bottom = 'auto';
+
+      if (targetX > window.innerWidth / 2) {
+        waBtn.classList.add('tooltip-left');
+      } else {
+        waBtn.classList.remove('tooltip-left');
+      }
     }
   });
 
@@ -772,4 +856,169 @@ function initDraggableWhatsApp() {
     }
     // Allow normal click to open WhatsApp URL
   });
+}
+
+/**
+ * Hero Slideshow Carousel (Management, Planning, Development, Training & Support)
+ * - Fits within the hero right column replacing mockup card
+ * - Slides continuously with pause on hover/focus
+ * - Prev/Next navigation arrows and indicator dots
+ * - Touch swipe support
+ */
+function initHeroSlider() {
+  const slider = document.getElementById('heroSliderCard');
+  if (!slider) return;
+
+  const track = document.getElementById('heroSliderTrack');
+  const slides = slider.querySelectorAll('.hero-slide');
+  const prevBtn = document.getElementById('heroSliderPrev');
+  const nextBtn = document.getElementById('heroSliderNext');
+  const dots = slider.querySelectorAll('.hero-slider-dot');
+
+  if (!track || slides.length === 0) return;
+
+  let currentIndex = 0;
+  const totalSlides = slides.length;
+  let autoplayTimer = null;
+  let progressInterval = null;
+  const autoplayDelay = 4500;
+  const counterEl = document.getElementById('sliderCounterCurr');
+  const progressFill = document.getElementById('heroSliderProgress');
+
+  function updateProgress(startTime) {
+    if (!progressFill) return;
+    clearInterval(progressInterval);
+    progressInterval = setInterval(() => {
+      const elapsed = Date.now() - startTime;
+      const pct = Math.min(100, (elapsed / autoplayDelay) * 100);
+      progressFill.style.width = `${pct}%`;
+      if (pct >= 100) {
+        clearInterval(progressInterval);
+      }
+    }, 50);
+  }
+
+  function goToSlide(index) {
+    if (index < 0) {
+      currentIndex = totalSlides - 1;
+    } else if (index >= totalSlides) {
+      currentIndex = 0;
+    } else {
+      currentIndex = index;
+    }
+
+    track.style.transform = `translateX(-${currentIndex * 100}%)`;
+
+    // Update active class on slides for pop animation
+    slides.forEach((slide, idx) => {
+      slide.classList.toggle('active', idx === currentIndex);
+    });
+
+    // Update Counter
+    if (counterEl) {
+      counterEl.textContent = String(currentIndex + 1).padStart(2, '0');
+    }
+
+    // Update Indicator Dots
+    dots.forEach((dot, idx) => {
+      const isActive = idx === currentIndex;
+      dot.classList.toggle('active', isActive);
+      dot.setAttribute('aria-selected', isActive ? 'true' : 'false');
+    });
+
+    // Reset progress
+    if (progressFill) {
+      progressFill.style.width = '0%';
+    }
+  }
+
+  function startAutoplay() {
+    stopAutoplay();
+    const startTime = Date.now();
+    updateProgress(startTime);
+    autoplayTimer = setInterval(() => {
+      goToSlide(currentIndex + 1);
+      updateProgress(Date.now());
+    }, autoplayDelay);
+  }
+
+  function stopAutoplay() {
+    if (autoplayTimer) {
+      clearInterval(autoplayTimer);
+      autoplayTimer = null;
+    }
+    if (progressInterval) {
+      clearInterval(progressInterval);
+      progressInterval = null;
+    }
+    if (progressFill) {
+      progressFill.style.width = '0%';
+    }
+  }
+
+  if (prevBtn) {
+    prevBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      goToSlide(currentIndex - 1);
+      startAutoplay();
+    });
+  }
+
+  if (nextBtn) {
+    nextBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      goToSlide(currentIndex + 1);
+      startAutoplay();
+    });
+  }
+
+  dots.forEach((dot, idx) => {
+    dot.addEventListener('click', (e) => {
+      e.preventDefault();
+      goToSlide(idx);
+      startAutoplay();
+    });
+  });
+
+  // Pause on hover / focus
+  slider.addEventListener('mouseenter', stopAutoplay);
+  slider.addEventListener('mouseleave', startAutoplay);
+  slider.addEventListener('focusin', stopAutoplay);
+  slider.addEventListener('focusout', startAutoplay);
+
+  // Touch swipe support
+  let touchStartX = 0;
+  let touchEndX = 0;
+
+  slider.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+    stopAutoplay();
+  }, { passive: true });
+
+  slider.addEventListener('touchend', (e) => {
+    touchEndX = e.changedTouches[0].screenX;
+    const diff = touchEndX - touchStartX;
+    if (Math.abs(diff) > 40) {
+      if (diff > 0) {
+        goToSlide(currentIndex - 1);
+      } else {
+        goToSlide(currentIndex + 1);
+      }
+    }
+    startAutoplay();
+  }, { passive: true });
+
+  // Keyboard navigation
+  slider.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft') {
+      goToSlide(currentIndex - 1);
+      startAutoplay();
+    } else if (e.key === 'ArrowRight') {
+      goToSlide(currentIndex + 1);
+      startAutoplay();
+    }
+  });
+
+  goToSlide(0);
+  startAutoplay();
 }
