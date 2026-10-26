@@ -168,6 +168,20 @@ p:last-child {
   padding-right: 1.5rem;
 }
 
+@media (max-width: 768px) {
+  .container-modern {
+    padding-left: 1.15rem;
+    padding-right: 1.15rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .container-modern {
+    padding-left: 0.85rem;
+    padding-right: 0.85rem;
+  }
+}
+
 /* ==========================================================================
    Button System
    ========================================================================== */
@@ -1171,7 +1185,7 @@ body.nav-drawer-open {
    ========================================================================== */
 .hero-section {
   position: relative;
-  padding: 140px 0 90px;
+  padding: 82px 0 45px;
   background: 
     radial-gradient(1200px 500px at 50% 0%, rgba(37, 99, 235, 0.07) 0%, transparent 60%),
     radial-gradient(800px 400px at 90% 40%, rgba(6, 182, 212, 0.05) 0%, transparent 50%),
@@ -1180,10 +1194,14 @@ body.nav-drawer-open {
   overflow: hidden;
 }
 
+.hero-section .container-modern {
+  max-width: 1300px;
+}
+
 .hero-grid {
   display: grid;
-  grid-template-columns: 1.2fr minmax(0, 490px);
-  gap: 3.5rem;
+  grid-template-columns: 1.16fr minmax(0, 540px);
+  gap: clamp(1.75rem, 2.5vw, 2.75rem);
   align-items: center;
 }
 
@@ -1199,7 +1217,7 @@ body.nav-drawer-open {
   font-family: var(--font-heading);
   font-size: 0.85rem;
   font-weight: 700;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.15rem;
   box-shadow: 0 2px 6px rgba(37, 99, 235, 0.08);
 }
 
@@ -1220,8 +1238,10 @@ body.nav-drawer-open {
 
 .hero-title {
   color: #0f172a;
-  margin-bottom: 1.5rem;
-  line-height: 1.15;
+  font-size: clamp(2.2rem, 3vw, 2.95rem);
+  letter-spacing: -0.025em;
+  margin-bottom: 1.25rem;
+  line-height: 1.18;
 }
 
 .hero-gradient-text {
@@ -1244,6 +1264,15 @@ body.nav-drawer-open {
   align-items: center;
   gap: 0.85rem;
   margin-bottom: 2.25rem;
+}
+
+.btn-hero-skills i {
+  color: var(--primary);
+  transition: transform 0.25s ease;
+}
+
+.btn-hero-skills:hover i {
+  transform: translateY(-2px) rotate(-8deg);
 }
 
 .page-hero-cta-group {
@@ -1303,15 +1332,15 @@ body.nav-drawer-open {
 .hero-slider-column {
   min-width: 0;
   width: 100%;
-  max-width: 490px;
+  max-width: 540px;
   justify-self: center;
 }
 
 .hero-slider-card {
   width: 100%;
-  max-width: 490px;
-  height: 530px;
-  min-height: 510px;
+  max-width: 540px;
+  height: 470px;
+  min-height: 450px;
   position: relative;
   border-radius: 20px;
   overflow: hidden;
@@ -1654,11 +1683,11 @@ body.nav-drawer-open {
 
 @media (max-width: 991px) {
   .hero-slider-column {
-    max-width: 480px;
+    max-width: 540px;
   }
   .hero-slider-card {
-    height: 490px;
-    min-height: 460px;
+    height: 460px;
+    min-height: 440px;
   }
   .hero-slide-glass {
     padding: 1.25rem 1.15rem;
@@ -1670,8 +1699,8 @@ body.nav-drawer-open {
     max-width: 100%;
   }
   .hero-slider-card {
-    height: 460px;
-    min-height: 430px;
+    height: 445px;
+    min-height: 420px;
   }
   .hero-slide-title {
     font-size: 1.4rem;
@@ -1803,11 +1832,15 @@ body.nav-drawer-open {
 
 @media (max-width: 991px) {
   .hero-section {
-    padding: 105px 0 55px;
+    padding: 78px 0 40px;
   }
   .hero-grid {
     grid-template-columns: 1fr;
     gap: 2.5rem;
+  }
+  .hero-title {
+    font-size: clamp(2.2rem, 4.8vw, 2.75rem);
+    line-height: 1.2;
   }
   .hero-description {
     font-size: 1.05rem;
@@ -1835,14 +1868,17 @@ body.nav-drawer-open {
     padding-right: 1.15rem;
   }
   .hero-section {
-    padding: 90px 0 40px;
+    padding: 72px 0 32px;
   }
   .hero-title {
-    font-size: clamp(1.85rem, 7.5vw, 2.35rem);
-    letter-spacing: -0.025em;
-    line-height: 1.22;
+    font-size: clamp(1.95rem, 7.6vw, 2.45rem);
+    letter-spacing: -0.02em;
+    line-height: 1.2;
     margin-bottom: 1rem;
     text-wrap: balance;
+  }
+  .hero-br {
+    display: none;
   }
   .hero-description {
     font-size: 0.96rem;
@@ -1852,32 +1888,18 @@ body.nav-drawer-open {
     text-wrap: pretty;
   }
   .hero-cta-group {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0.65rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
     width: 100%;
+    max-width: 440px;
   }
   .hero-cta-group .btn-modern {
     width: 100%;
     justify-content: center;
-    padding: 0.72rem 0.65rem;
-    font-size: 0.88rem;
-    text-align: center;
-  }
-  .hero-cta-group .btn-hero-explore {
-    grid-column: 1 / -1;
-    padding: 0.8rem 1rem;
+    padding: 0.8rem 1.25rem;
     font-size: 0.94rem;
-  }
-  .hero-cta-group .btn-hero-websites,
-  .hero-cta-group .btn-hero-apps {
-    grid-column: span 1;
-    white-space: nowrap;
-  }
-  .hero-cta-group .btn-hero-wa {
-    grid-column: 1 / -1;
-    padding: 0.8rem 1rem;
-    font-size: 0.92rem;
+    text-align: center;
   }
 
   .page-hero-cta-group {
